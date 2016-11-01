@@ -1,0 +1,62 @@
+﻿<!-- Licensed under a BSD license. See license.html for license -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>WebGL - 2D Rectangle Translate</title>
+    <link href="../../../webgl/resources/webgl-tutorials.css" rel="stylesheet" />
+    <style>
+        #ui {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="description">
+        Drag sliders to translate.
+    </div>
+    <canvas id="canvas"></canvas>
+    <div id="uiContainer">
+        <div id="ui">
+            <div id="x"></div>
+            <div id="y"></div>
+        </div>
+    </div>
+
+    <!-- vertex shader -->
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 a_position;
+
+        uniform vec2 u_resolution;
+
+        void main() {
+        // convert the rectangle points from pixels to 0.0 to 1.0
+        vec2 zeroToOne = a_position / u_resolution;
+
+        // convert from 0->1 to 0->2
+        vec2 zeroToTwo = zeroToOne * 2.0;
+
+        // convert from 0->2 to -1->+1 (clipspace)
+        vec2 clipSpace = zeroToTwo - 1.0;
+
+        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        }
+    </script>
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        uniform vec4 u_color;
+
+        void main() {
+        gl_FragColor = u_color;
+        }
+    </script>
+
+    <script src="../../../webgl/resources/webgl-utils.js"></script>
+    <script src="../../../webgl/resources/webgl-lessons-helper.js"></script>
+    <script src="index.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{668CB2BE-9E57-45C2-9407-638C411DA2D5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>2.0</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="3rdparty\hand-1.3.7.js" />
+    <Content Include="3rdparty\jquery-1.11.2.min.js" />
+    <Content Include="atom.xml" />
+    <Content Include="build\jsdoc-template\template\moment.js" />
+    <Content Include="build\jsdoc-template\template\publish.js" />
+    <Content Include="build\jsdoc-template\template\static\img\glyphicons-halflings-white.png" />
+    <Content Include="build\jsdoc-template\template\static\img\glyphicons-halflings.png" />
+    <Content Include="build\jsdoc-template\template\static\scripts\bootstrap-dropdown.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\bootstrap-tab.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\docstrap.lib.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\prettify\Apache-License-2.0.txt" />
+    <Content Include="build\jsdoc-template\template\static\scripts\prettify\jquery.min.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\prettify\lang-css.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\prettify\prettify.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\sunlight.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\toc.js" />
+    <Content Include="build\jsdoc-template\template\static\scripts\URI.js" />
+    <Content Include="build\jsdoc-template\template\static\styles\darkstrap.css" />
+    <Content Include="build\jsdoc-template\template\static\styles\prettify-tomorrow.css" />
+    <Content Include="build\jsdoc-template\template\static\styles\site.cerulean.css" />
+    <Content Include="build\js\build.js" />
+    <Content Include="build\js\utils.js" />
+    <Content Include="contributors.html" />
+    <Content Include="docs\img\glyphicons-halflings-white.png" />
+    <Content Include="docs\img\glyphicons-halflings.png" />
+    <Content Include="docs\index.html" />
+    <Content Include="docs\module-primitives.html" />
+    <Content Include="docs\module-webgl-2d-math.html" />
+    <Content Include="docs\module-webgl-3d-math.html" />
+    <Content Include="docs\module-webgl-utils.html" />
+    <Content Include="docs\modules.list.html" />
+    <Content Include="docs\scripts\bootstrap-dropdown.js" />
+    <Content Include="docs\scripts\bootstrap-tab.js" />
+    <Content Include="docs\scripts\docstrap.lib.js" />
+    <Content Include="docs\scripts\prettify\Apache-License-2.0.txt" />
+    <Content Include="docs\scripts\prettify\jquery.min.js" />
+    <Content Include="docs\scripts\prettify\lang-css.js" />
+    <Content Include="docs\scripts\prettify\prettify.js" />
+    <Content Include="docs\scripts\sunlight.js" />
+    <Content Include="docs\scripts\toc.js" />
+    <Content Include="docs\scripts\URI.js" />
+    <Content Include="docs\styles\darkstrap.css" />
+    <Content Include="docs\styles\prettify-tomorrow.css" />
+    <Content Include="docs\styles\site.cerulean.css" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="index.html" />
+    <Content Include="langdb.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.de.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.es.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.fr.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.it.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.ja.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.ko.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.ru.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.zh-cn.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\simpleWorker.nls.zh-tw.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.de.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.es.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.fr.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.it.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.ja.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.ko.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.ru.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.zh-cn.js" />
+    <Content Include="monaco-editor\min\vs\base\common\worker\workerServer.nls.zh-tw.js" />
+    <Content Include="monaco-editor\min\vs\base\worker\workerMain.js" />
+    <Content Include="monaco-editor\min\vs\base\worker\workerMainCompatibility.html" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\bat.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\coffee.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\cpp.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\csharp.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\css.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\dockerfile.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\fsharp.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\go.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\ini.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\jade.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\java.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\less.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\lua.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\markdown.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\objective-c.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\postiats.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\powershell.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\python.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\r.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\ruby.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\scss.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\sql.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\swift.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\vb.js" />
+    <Content Include="monaco-editor\min\vs\basic-languages\src\xml.js" />
+    <Content Include="monaco-editor\min\vs\css.js" />
+    <Content Include="monaco-editor\min\vs\editor\contrib\quickOpen\browser\symbol-sprite.svg" />
+    <Content Include="monaco-editor\min\vs\editor\contrib\suggest\browser\symbol-sprite.svg" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.css" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.de.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.es.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.fr.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.it.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.ja.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.ko.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.ru.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.zh-cn.js" />
+    <Content Include="monaco-editor\min\vs\editor\editor.main.nls.zh-tw.js" />
+    <Content Include="monaco-editor\min\vs\languages\handlebars\common\handlebars.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\html.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.de.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.es.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.fr.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.it.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.ja.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.ko.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.ru.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.zh-cn.js" />
+    <Content Include="monaco-editor\min\vs\languages\html\common\htmlWorker.nls.zh-tw.js" />
+    <Content Include="monaco-editor\min\vs\languages\lib\common\beautify-html.js" />
+    <Content Include="monaco-editor\min\vs\languages\php\common\php.js" />
+    <Content Include="monaco-editor\min\vs\languages\razor\common\razor.js" />
+    <Content Include="monaco-editor\min\vs\languages\razor\common\razorWorker.js" />
+    <Content Include="monaco-editor\min\vs\language\css\cssMode.js" />
+    <Content Include="monaco-editor\min\vs\language\css\cssWorker.js" />
+    <Content Include="monaco-editor\min\vs\language\json\jsonMode.js" />
+    <Content Include="monaco-editor\min\vs\language\json\jsonWorker.js" />
+    <Content Include="monaco-editor\min\vs\language\typescript\lib\typescriptServices.js" />
+    <Content Include="monaco-editor\min\vs\language\typescript\src\mode.js" />
+    <Content Include="monaco-editor\min\vs\language\typescript\src\worker.js" />
+    <Content Include="monaco-editor\min\vs\loader.js" />
+    <Content Include="monaco-editor\min\vs\nls.js" />
+    <Content Include="robots.txt" />
+    <Content Include="sitemap.xml" />
+    <Content Include="toc.html" />
+    <Content Include="web.config" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation-angle\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation-angle\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate-better\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate-better\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl\embed-test.html" />
+    <Content Include="webgl\frustum-diagram.html" />
+    <Content Include="webgl\glyph-texture-atlas-maker.html" />
+    <Content Include="webgl\lessons\atom.xml" />
+    <Content Include="webgl\lessons\fr\atom.xml" />
+    <Content Include="webgl\lessons\fr\index.html" />
+    <Content Include="webgl\lessons\fr\toc.html" />
+    <Content Include="webgl\lessons\fr\webgl-2d-matrices.html" />
+    <Content Include="webgl\lessons\fr\webgl-2d-rotation.html" />
+    <Content Include="webgl\lessons\fr\webgl-2d-scale.html" />
+    <Content Include="webgl\lessons\fr\webgl-2d-translation.html" />
+    <Content Include="webgl\lessons\fr\webgl-3d-camera.html" />
+    <Content Include="webgl\lessons\fr\webgl-3d-lighting-directional.html" />
+    <Content Include="webgl\lessons\fr\webgl-3d-lighting-point.html" />
+    <Content Include="webgl\lessons\fr\webgl-3d-orthographic.html" />
+    <Content Include="webgl\lessons\fr\webgl-3d-perspective.html" />
+    <Content Include="webgl\lessons\fr\webgl-fundamentals.html" />
+    <Content Include="webgl\lessons\fr\webgl-how-it-works.html" />
+    <Content Include="webgl\lessons\fr\webgl-scene-graph.html" />
+    <Content Include="webgl\lessons\fr\webgl-shaders-and-glsl.html" />
+    <Content Include="webgl\lessons\index.html" />
+    <Content Include="webgl\lessons\pl\atom.xml" />
+    <Content Include="webgl\lessons\pl\index.html" />
+    <Content Include="webgl\lessons\pl\toc.html" />
+    <Content Include="webgl\lessons\pl\webgl-2d-rotation.html" />
+    <Content Include="webgl\lessons\pl\webgl-2d-translation.html" />
+    <Content Include="webgl\lessons\pl\webgl-2d-vs-3d-library.html" />
+    <Content Include="webgl\lessons\pl\webgl-fundamentals.html" />
+    <Content Include="webgl\lessons\resources\2d-scene-graph-diagram.js" />
+    <Content Include="webgl\lessons\resources\3d-in-canvas.html" />
+    <Content Include="webgl\lessons\resources\3d-in-webgl.html" />
+    <Content Include="webgl\lessons\resources\3d-math.js" />
+    <Content Include="webgl\lessons\resources\3df.svg" />
+    <Content Include="webgl\lessons\resources\axis-diagram.html" />
+    <Content Include="webgl\lessons\resources\banner-00.png" />
+    <Content Include="webgl\lessons\resources\base.css" />
+    <Content Include="webgl\lessons\resources\bonsai-0.4.1.min.js" />
+    <Content Include="webgl\lessons\resources\camera-move-camera.html" />
+    <Content Include="webgl\lessons\resources\canvas-wrapper.js" />
+    <Content Include="webgl\lessons\resources\chrome-devtools.png" />
+    <Content Include="webgl\lessons\resources\chrome-webserver.png" />
+    <Content Include="webgl\lessons\resources\cross-product-diagram.html" />
+    <Content Include="webgl\lessons\resources\devtools-source.gif" />
+    <Content Include="webgl\lessons\resources\diagram.js" />
+    <Content Include="webgl\lessons\resources\different-colored-mips.png" />
+    <Content Include="webgl\lessons\resources\directional-lighting.html" />
+    <Content Include="webgl\lessons\resources\dot-product-2d.html" />
+    <Content Include="webgl\lessons\resources\dot-product.html" />
+    <Content Include="webgl\lessons\resources\download-webglfundamentals.gif" />
+    <Content Include="webgl\lessons\resources\f-texture-coordinates-diagram.svg" />
+    <Content Include="webgl\lessons\resources\fragment-shader-anim.html" />
+    <Content Include="webgl\lessons\resources\http-server-response.png" />
+    <Content Include="webgl\lessons\resources\index.css" />
+    <Content Include="webgl\lessons\resources\javascript-console.gif" />
+    <Content Include="webgl\lessons\resources\languages.js" />
+    <Content Include="webgl\lessons\resources\lesson-utils.js" />
+    <Content Include="webgl\lessons\resources\lesson.css" />
+    <Content Include="webgl\lessons\resources\lesson.js" />
+    <Content Include="webgl\lessons\resources\matrixstack-after.svg" />
+    <Content Include="webgl\lessons\resources\matrixstack-before.svg" />
+    <Content Include="webgl\lessons\resources\mip-low-res-enlarged.png" />
+    <Content Include="webgl\lessons\resources\mipmap-low-res-enlarged.png" />
+    <Content Include="webgl\lessons\resources\moon-orbit.html" />
+    <Content Include="webgl\lessons\resources\my-awesme-text.png" />
+    <Content Include="webgl\lessons\resources\noodles-01.jpg" />
+    <Content Include="webgl\lessons\resources\noodles-02.jpg" />
+    <Content Include="webgl\lessons\resources\noodles-03.jpg" />
+    <Content Include="webgl\lessons\resources\noodles-04.jpg" />
+    <Content Include="webgl\lessons\resources\noodles-05.jpg" />
+    <Content Include="webgl\lessons\resources\noodles-06.jpg" />
+    <Content Include="webgl\lessons\resources\normals-scaled.html" />
+    <Content Include="webgl\lessons\resources\normals.html" />
+    <Content Include="webgl\lessons\resources\orthographic-vs-perspective.png" />
+    <Content Include="webgl\lessons\resources\person-diagram.html" />
+    <Content Include="webgl\lessons\resources\perspective-example.svg" />
+    <Content Include="webgl\lessons\resources\planet-diagram.html" />
+    <Content Include="webgl\lessons\resources\point-lighting.html" />
+    <Content Include="webgl\lessons\resources\power-graph.html" />
+    <Content Include="webgl\lessons\resources\prettify.js" />
+    <Content Include="webgl\lessons\resources\rotation-arrow.png" />
+    <Content Include="webgl\lessons\resources\rss-icon.svg" />
+    <Content Include="webgl\lessons\resources\specular-highlights.jpg" />
+    <Content Include="webgl\lessons\resources\specular-lighting.html" />
+    <Content Include="webgl\lessons\resources\surface-reflection.html" />
+    <Content Include="webgl\lessons\resources\text-gray-outline.png" />
+    <Content Include="webgl\lessons\resources\text-zbuffer-issue.png" />
+    <Content Include="webgl\lessons\resources\texture-coordinates-diagram.svg" />
+    <Content Include="webgl\lessons\resources\three-js-cube-with-lights.html" />
+    <Content Include="webgl\lessons\resources\three.min.js" />
+    <Content Include="webgl\lessons\resources\transform.js" />
+    <Content Include="webgl\lessons\resources\triangle-winding.svg" />
+    <Content Include="webgl\lessons\resources\vertex-shader-anim.gif" />
+    <Content Include="webgl\lessons\resources\view-source.gif" />
+    <Content Include="webgl\lessons\resources\webgl-lessons.css" />
+    <Content Include="webgl\lessons\resources\webgl-perspective-negative-156.png" />
+    <Content Include="webgl\lessons\resources\webgl-preservedrawingbuffer-true.html" />
+    <Content Include="webgl\lessons\resources\webglfundamentals-icon-256.png" />
+    <Content Include="webgl\lessons\resources\webglfundamentals-icon.png" />
+    <Content Include="webgl\lessons\resources\webglfundamentals.jpg" />
+    <Content Include="webgl\lessons\resources\z-clipping.gif" />
+    <Content Include="webgl\lessons\ru\atom.xml" />
+    <Content Include="webgl\lessons\ru\index.html" />
+    <Content Include="webgl\lessons\ru\toc.html" />
+    <Content Include="webgl\lessons\ru\webgl-fundamentals.html" />
+    <Content Include="webgl\lessons\ru\webgl-how-it-works.html" />
+    <Content Include="webgl\lessons\ru\webgl-image-processing-continued.html" />
+    <Content Include="webgl\lessons\ru\webgl-image-processing.html" />
+    <Content Include="webgl\lessons\ru\webgl-shaders-and-glsl.html" />
+    <Content Include="webgl\lessons\screenshots\webgl-how-it-works.jpg" />
+    <Content Include="webgl\lessons\toc.html" />
+    <Content Include="webgl\lessons\webgl-2-textures.html" />
+    <Content Include="webgl\lessons\webgl-2d-drawimage.html" />
+    <Content Include="webgl\lessons\webgl-2d-matrices.html" />
+    <Content Include="webgl\lessons\webgl-2d-matrix-stack.html" />
+    <Content Include="webgl\lessons\webgl-2d-rotation.html" />
+    <Content Include="webgl\lessons\webgl-2d-scale.html" />
+    <Content Include="webgl\lessons\webgl-2d-translation.html" />
+    <Content Include="webgl\lessons\webgl-2d-vs-3d-library.html" />
+    <Content Include="webgl\lessons\webgl-3d-camera.html" />
+    <Content Include="webgl\lessons\webgl-3d-lighting-directional.html" />
+    <Content Include="webgl\lessons\webgl-3d-lighting-point.html" />
+    <Content Include="webgl\lessons\webgl-3d-orthographic-camera.html" />
+    <Content Include="webgl\lessons\webgl-3d-orthographic.html" />
+    <Content Include="webgl\lessons\webgl-3d-perspective.html" />
+    <Content Include="webgl\lessons\webgl-3d-textures.html" />
+    <Content Include="webgl\lessons\webgl-and-alpha.html" />
+    <Content Include="webgl\lessons\webgl-animation.html" />
+    <Content Include="webgl\lessons\webgl-anti-patterns.html" />
+    <Content Include="webgl\lessons\webgl-boilerplate.html" />
+    <Content Include="webgl\lessons\webgl-drawing-multiple-things.html" />
+    <Content Include="webgl\lessons\webgl-fundamentals.html" />
+    <Content Include="webgl\lessons\webgl-how-it-works.html" />
+    <Content Include="webgl\lessons\webgl-image-processing-continued.html" />
+    <Content Include="webgl\lessons\webgl-image-processing.html" />
+    <Content Include="webgl\lessons\webgl-less-code-more-fun.html" />
+    <Content Include="webgl\lessons\webgl-resizing-the-canvas.html" />
+    <Content Include="webgl\lessons\webgl-scene-graph.html" />
+    <Content Include="webgl\lessons\webgl-setup-and-installation.html" />
+    <Content Include="webgl\lessons\webgl-shaders-and-glsl.html" />
+    <Content Include="webgl\lessons\webgl-text-canvas2d.html" />
+    <Content Include="webgl\lessons\webgl-text-glyphs.html" />
+    <Content Include="webgl\lessons\webgl-text-html.html" />
+    <Content Include="webgl\lessons\webgl-text-texture.html" />
+    <Content Include="webgl\license.html" />
+    <Content Include="webgl\resources\2d-math.js" />
+    <Content Include="webgl\resources\3d-math.js" />
+    <Content Include="webgl\resources\8x8-font.png" />
+    <Content Include="webgl\resources\chroma.min.js" />
+    <Content Include="webgl\resources\colResizable-1.3.min.js" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="webgl\resources\css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="webgl\resources\css\ui-lightness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="webgl\resources\editor-fullscreen-icon.svg" />
+    <Content Include="webgl\resources\editor-unfullscreen-icon.svg" />
+    <Content Include="webgl\resources\editor.html" />
+    <Content Include="webgl\resources\editor.js" />
+    <Content Include="webgl\resources\eye-icon.png" />
+    <Content Include="webgl\resources\f-orientation.svg" />
+    <Content Include="webgl\resources\f-scale-rotation-translation.svg" />
+    <Content Include="webgl\resources\f-texture-pixel-coords.png" />
+    <Content Include="webgl\resources\f-texture.png" />
+    <Content Include="webgl\resources\f-translation-rotation-scale-base.svg" />
+    <Content Include="webgl\resources\f-translation-rotation-scale.svg" />
+    <Content Include="webgl\resources\headdata.js" />
+    <Content Include="webgl\resources\jquery-1.7.1.min.js" />
+    <Content Include="webgl\resources\jquery-gman-circle.js" />
+    <Content Include="webgl\resources\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="webgl\resources\jquery.gman.ui.js" />
+    <Content Include="webgl\resources\jquery.mousecapture.js" />
+    <Content Include="webgl\resources\jquery.tablednd_0_5.js" />
+    <Content Include="webgl\resources\keyboard.jpg" />
+    <Content Include="webgl\resources\leaves.jpg" />
+    <Content Include="webgl\resources\mip-example.png" />
+    <Content Include="webgl\resources\mip-low-res-example.png" />
+    <Content Include="webgl\resources\noodles.jpg" />
+    <Content Include="webgl\resources\polygon-f.svg" />
+    <Content Include="webgl\resources\primitives.js" />
+    <Content Include="webgl\resources\require.js" />
+    <Content Include="webgl\resources\rotate-30.png" />
+    <Content Include="webgl\resources\rotate-60.png" />
+    <Content Include="webgl\resources\rotate-90.png" />
+    <Content Include="webgl\resources\rotation-drawing.svg" />
+    <Content Include="webgl\resources\same-code-02.js" />
+    <Content Include="webgl\resources\same-code.js" />
+    <Content Include="webgl\resources\star.jpg" />
+    <Content Include="webgl\resources\stats.min.js" />
+    <Content Include="webgl\resources\tdl\base.js" />
+    <Content Include="webgl\resources\tdl\buffers.js" />
+    <Content Include="webgl\resources\tdl\clock.js" />
+    <Content Include="webgl\resources\tdl\error.jpg" />
+    <Content Include="webgl\resources\tdl\fast.js" />
+    <Content Include="webgl\resources\tdl\fps.js" />
+    <Content Include="webgl\resources\tdl\framebuffers.js" />
+    <Content Include="webgl\resources\tdl\fullscreen.js" />
+    <Content Include="webgl\resources\tdl\io.js" />
+    <Content Include="webgl\resources\tdl\loader.js" />
+    <Content Include="webgl\resources\tdl\log.js" />
+    <Content Include="webgl\resources\tdl\math.js" />
+    <Content Include="webgl\resources\tdl\misc.js" />
+    <Content Include="webgl\resources\tdl\models.js" />
+    <Content Include="webgl\resources\tdl\particles.js" />
+    <Content Include="webgl\resources\tdl\primitives.js" />
+    <Content Include="webgl\resources\tdl\programs.js" />
+    <Content Include="webgl\resources\tdl\quaternions.js" />
+    <Content Include="webgl\resources\tdl\screenshot.js" />
+    <Content Include="webgl\resources\tdl\shader.js" />
+    <Content Include="webgl\resources\tdl\string.js" />
+    <Content Include="webgl\resources\tdl\sync.js" />
+    <Content Include="webgl\resources\tdl\textures.js" />
+    <Content Include="webgl\resources\tdl\webgl.js" />
+    <Content Include="webgl\resources\texture-utils.js" />
+    <Content Include="webgl\resources\twgl-full.min.js" />
+    <Content Include="webgl\resources\webgl-2d-math.js" />
+    <Content Include="webgl\resources\webgl-3d-math.js" />
+    <Content Include="webgl\resources\webgl-lessons-helper.js" />
+    <Content Include="webgl\resources\webgl-tutorials.css" />
+    <Content Include="webgl\resources\webgl-utils.js" />
+    <Content Include="webgl\svg-test.html" />
+    <Content Include="webgl\unit-circle.html" />
+    <Content Include="webgl\webgl-10x15-canvas-400x300-css.html" />
+    <Content Include="webgl\webgl-2-textures.html" />
+    <Content Include="webgl\webgl-2d-drawimage-01.html" />
+    <Content Include="webgl\webgl-2d-drawimage-02.html" />
+    <Content Include="webgl\webgl-2d-drawimage-03.html" />
+    <Content Include="webgl\webgl-2d-drawimage-04.html" />
+    <Content Include="webgl\webgl-2d-drawimage-05.html" />
+    <Content Include="webgl\webgl-2d-drawimage-06.html" />
+    <Content Include="webgl\webgl-2d-drawimage-07.html" />
+    <Content Include="webgl\webgl-2d-drawimage-08.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform-center-f.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform-hierarchical.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform-simpler-functions.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform-trs.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform-with-projection.html" />
+    <Content Include="webgl\webgl-2d-geometry-matrix-transform.html" />
+    <Content Include="webgl\webgl-2d-geometry-rotation-angle.html" />
+    <Content Include="webgl\webgl-2d-geometry-rotation.html" />
+    <Content Include="webgl\webgl-2d-geometry-scale.html" />
+    <Content Include="webgl\webgl-2d-geometry-translate-better.html" />
+    <Content Include="webgl\webgl-2d-geometry-translate.html" />
+    <Content Include="webgl\webgl-2d-image-3x3-convolution.html" />
+    <Content Include="webgl\webgl-2d-image-blend.html" />
+    <Content Include="webgl\webgl-2d-image-processing.html" />
+    <Content Include="webgl\webgl-2d-image-red2blue.html" />
+    <Content Include="webgl\webgl-2d-image.html" />
+    <Content Include="webgl\webgl-2d-matrixstack-01.html" />
+    <Content Include="webgl\webgl-2d-matrixstack-02.html" />
+    <Content Include="webgl\webgl-2d-matrixstack-03.html" />
+    <Content Include="webgl\webgl-2d-rectangle-top-left.html" />
+    <Content Include="webgl\webgl-2d-rectangle-translate.html" />
+    <Content Include="webgl\webgl-2d-rectangle-with-2-byte-colors.html" />
+    <Content Include="webgl\webgl-2d-rectangle-with-2-colors.html" />
+    <Content Include="webgl\webgl-2d-rectangle-with-position-for-color.html" />
+    <Content Include="webgl\webgl-2d-rectangle-with-random-colors.html" />
+    <Content Include="webgl\webgl-2d-rectangle.html" />
+    <Content Include="webgl\webgl-2d-rectangles.html" />
+    <Content Include="webgl\webgl-2d-triangle-with-position-for-color.html" />
+    <Content Include="webgl\webgl-3d-camera-look-at-heads.html" />
+    <Content Include="webgl\webgl-3d-camera-look-at.html" />
+    <Content Include="webgl\webgl-3d-camera.html" />
+    <Content Include="webgl\webgl-3d-lighting-directional-world.html" />
+    <Content Include="webgl\webgl-3d-lighting-directional-worldinversetranspose.html" />
+    <Content Include="webgl\webgl-3d-lighting-directional.html" />
+    <Content Include="webgl\webgl-3d-lighting-point-color.html" />
+    <Content Include="webgl\webgl-3d-lighting-point-specular-power.html" />
+    <Content Include="webgl\webgl-3d-lighting-point-specular.html" />
+    <Content Include="webgl\webgl-3d-lighting-point.html" />
+    <Content Include="webgl\webgl-3d-perspective-matrix.html" />
+    <Content Include="webgl\webgl-3d-perspective-w-matrix.html" />
+    <Content Include="webgl\webgl-3d-perspective-w.html" />
+    <Content Include="webgl\webgl-3d-perspective.html" />
+    <Content Include="webgl\webgl-3d-step1.html" />
+    <Content Include="webgl\webgl-3d-step2.html" />
+    <Content Include="webgl\webgl-3d-step3.html" />
+    <Content Include="webgl\webgl-3d-step4.html" />
+    <Content Include="webgl\webgl-3d-step5.html" />
+    <Content Include="webgl\webgl-3d-step6.html" />
+    <Content Include="webgl\webgl-3d-textures-bad-npot.html" />
+    <Content Include="webgl\webgl-3d-textures-good-npot.html" />
+    <Content Include="webgl\webgl-3d-textures-mips-tri-linear.html" />
+    <Content Include="webgl\webgl-3d-textures-mips.html" />
+    <Content Include="webgl\webgl-3d-textures-repeat-clamp.html" />
+    <Content Include="webgl\webgl-3d-textures-texture-atlas.html" />
+    <Content Include="webgl\webgl-3d-textures-texture-coords-mapped.html" />
+    <Content Include="webgl\webgl-3d-textures.html" />
+    <Content Include="webgl\webgl-animation-frame-rate-issues.html" />
+    <Content Include="webgl\webgl-animation-not-frame-rate-independent.html" />
+    <Content Include="webgl\webgl-animation.html" />
+    <Content Include="webgl\webgl-canvas-clientwidth-clientheight.html" />
+    <Content Include="webgl\webgl-canvas-width-height.html" />
+    <Content Include="webgl\webgl-fundamentals.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-quad-augmentedtypedarrays.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-quad-guess.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-quad-programinfo.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-quad-typedarrays.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-quad.html" />
+    <Content Include="webgl\webgl-less-code-more-fun-triangle.html" />
+    <Content Include="webgl\webgl-less-code-more-fun.html" />
+    <Content Include="webgl\webgl-multiple-objects-list-optimized-sorted-amd.html" />
+    <Content Include="webgl\webgl-multiple-objects-list-optimized-sorted-amd.js" />
+    <Content Include="webgl\webgl-multiple-objects-list-optimized-sorted.html" />
+    <Content Include="webgl\webgl-multiple-objects-list-optimized.html" />
+    <Content Include="webgl\webgl-multiple-objects-list.html" />
+    <Content Include="webgl\webgl-multiple-objects-manual.html" />
+    <Content Include="webgl\webgl-multiple-objects.html" />
+    <Content Include="webgl\webgl-resize-canvas-hd-dpi.html" />
+    <Content Include="webgl\webgl-resize-canvas-viewport.html" />
+    <Content Include="webgl\webgl-resize-canvas.html" />
+    <Content Include="webgl\webgl-same-code-body-only-fullscreen.html" />
+    <Content Include="webgl\webgl-same-code-canvas-embedded-border-box.html" />
+    <Content Include="webgl\webgl-same-code-canvas-embedded.html" />
+    <Content Include="webgl\webgl-same-code-canvas-fullscreen.html" />
+    <Content Include="webgl\webgl-same-code-canvas-partscreen.html" />
+    <Content Include="webgl\webgl-same-code-container-embedded-border-box.html" />
+    <Content Include="webgl\webgl-same-code-container-embedded.html" />
+    <Content Include="webgl\webgl-same-code-container-fullscreen.html" />
+    <Content Include="webgl\webgl-same-code-container-partscreen.html" />
+    <Content Include="webgl\webgl-same-code-resize.html" />
+    <Content Include="webgl\webgl-scene-graph-block-guy.html" />
+    <Content Include="webgl\webgl-scene-graph-solar-system-adjusted.html" />
+    <Content Include="webgl\webgl-scene-graph-solar-system-larger-earth-fixed.html" />
+    <Content Include="webgl\webgl-scene-graph-solar-system-larger-earth.html" />
+    <Content Include="webgl\webgl-scene-graph-solar-system.html" />
+    <Content Include="webgl\webgl-text-glyphs-texture-atlas.html" />
+    <Content Include="webgl\webgl-text-glyphs.html" />
+    <Content Include="webgl\webgl-text-html-bouncing-div.html" />
+    <Content Include="webgl\webgl-text-html-canvas2d-arrows.html" />
+    <Content Include="webgl\webgl-text-html-canvas2d.html" />
+    <Content Include="webgl\webgl-text-html-div.html" />
+    <Content Include="webgl\webgl-text-html-divs.html" />
+    <Content Include="webgl\webgl-text-html-overlay-styled.html" />
+    <Content Include="webgl\webgl-text-html-overlay.html" />
+    <Content Include="webgl\webgl-text-html.html" />
+    <Content Include="webgl\webgl-text-texture-consistent-scale.html" />
+    <Content Include="webgl\webgl-text-texture-different-colors.html" />
+    <Content Include="webgl\webgl-text-texture-different-text.html" />
+    <Content Include="webgl\webgl-text-texture-enable-blend.html" />
+    <Content Include="webgl\webgl-text-texture-moved-toward-view.html" />
+    <Content Include="webgl\webgl-text-texture-premultiplied-alpha.html" />
+    <Content Include="webgl\webgl-text-texture-separate-opaque-from-transparent.html" />
+    <Content Include="webgl\webgl-text-texture.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\conf\eslint.json" />
+    <Content Include="build\conf\jsdoc.conf.json" />
+    <Content Include="build\jsdoc-template\LICENSE.md" />
+    <Content Include="build\jsdoc-template\template\jsdoc.conf.json" />
+    <Content Include="build\jsdoc-template\template\tmpl\container.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\details.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\example.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\examples.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\exceptions.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\fires.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\layout.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\mainpage.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\members.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\method.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\params.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\properties.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\returns.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\sections.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\source.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\tutorial.tmpl" />
+    <Content Include="build\jsdoc-template\template\tmpl\type.tmpl" />
+    <Content Include="build\templates\analytics.template" />
+    <Content Include="build\templates\diagram.template" />
+    <Content Include="build\templates\example.template" />
+    <Content Include="build\templates\header.template" />
+    <Content Include="build\templates\image.template" />
+    <Content Include="build\templates\index.template" />
+    <Content Include="build\templates\lang-select.template" />
+    <Content Include="build\templates\languages.template" />
+    <Content Include="build\templates\lesson.template" />
+    <Content Include="LICENSE" />
+    <Content Include="obj2.py" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="source_assets\matrixstack.afdesign" />
+    <Content Include="source_assets\vertex-shader-anim.psd" />
+    <Content Include="todo.md" />
+    <Content Include="CNAME" />
+    <Content Include="contributors.md" />
+    <Content Include="docs.md" />
+    <Content Include="packages.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <Content Include="webgl\lessons\fr\index.md" />
+    <Content Include="webgl\lessons\fr\langinfo.hanson" />
+    <Content Include="webgl\lessons\fr\webgl-2d-matrices.md" />
+    <Content Include="webgl\lessons\fr\webgl-2d-rotation.md" />
+    <Content Include="webgl\lessons\fr\webgl-2d-scale.md" />
+    <Content Include="webgl\lessons\fr\webgl-2d-translation.md" />
+    <Content Include="webgl\lessons\fr\webgl-3d-camera.md" />
+    <Content Include="webgl\lessons\fr\webgl-3d-lighting-directional.md" />
+    <Content Include="webgl\lessons\fr\webgl-3d-lighting-point.md" />
+    <Content Include="webgl\lessons\fr\webgl-3d-orthographic.md" />
+    <Content Include="webgl\lessons\fr\webgl-3d-perspective.md" />
+    <Content Include="webgl\lessons\fr\webgl-fundamentals.md" />
+    <Content Include="webgl\lessons\fr\webgl-how-it-works.md" />
+    <Content Include="webgl\lessons\fr\webgl-scene-graph.md" />
+    <Content Include="webgl\lessons\fr\webgl-shaders-and-glsl.md" />
+    <Content Include="webgl\lessons\index.md" />
+    <Content Include="webgl\lessons\langinfo.hanson" />
+    <Content Include="webgl\lessons\pl\index.md" />
+    <Content Include="webgl\lessons\pl\langinfo.hanson" />
+    <Content Include="webgl\lessons\pl\webgl-2d-rotation.md" />
+    <Content Include="webgl\lessons\pl\webgl-2d-translation.md" />
+    <Content Include="webgl\lessons\pl\webgl-2d-vs-3d-library.md" />
+    <Content Include="webgl\lessons\pl\webgl-fundamentals.md" />
+    <Content Include="webgl\lessons\ru\index.md" />
+    <Content Include="webgl\lessons\ru\langinfo.hanson" />
+    <Content Include="webgl\lessons\ru\webgl-fundamentals.md" />
+    <Content Include="webgl\lessons\ru\webgl-how-it-works.md" />
+    <Content Include="webgl\lessons\ru\webgl-image-processing-continued.md" />
+    <Content Include="webgl\lessons\ru\webgl-image-processing.md" />
+    <Content Include="webgl\lessons\ru\webgl-shaders-and-glsl.md" />
+    <Content Include="webgl\lessons\webgl-2-textures.md" />
+    <Content Include="webgl\lessons\webgl-2d-drawimage.md" />
+    <Content Include="webgl\lessons\webgl-2d-matrices.md" />
+    <Content Include="webgl\lessons\webgl-2d-matrix-stack.md" />
+    <Content Include="webgl\lessons\webgl-2d-rotation.md" />
+    <Content Include="webgl\lessons\webgl-2d-scale.md" />
+    <Content Include="webgl\lessons\webgl-2d-translation.md" />
+    <Content Include="webgl\lessons\webgl-2d-vs-3d-library.md" />
+    <Content Include="webgl\lessons\webgl-3d-camera.md" />
+    <Content Include="webgl\lessons\webgl-3d-lighting-directional.md" />
+    <Content Include="webgl\lessons\webgl-3d-lighting-point.md" />
+    <Content Include="webgl\lessons\webgl-3d-orthographic.md" />
+    <Content Include="webgl\lessons\webgl-3d-perspective.md" />
+    <Content Include="webgl\lessons\webgl-3d-textures.md" />
+    <Content Include="webgl\lessons\webgl-and-alpha.md" />
+    <Content Include="webgl\lessons\webgl-animation.md" />
+    <Content Include="webgl\lessons\webgl-anti-patterns.md" />
+    <Content Include="webgl\lessons\webgl-boilerplate.md" />
+    <Content Include="webgl\lessons\webgl-drawing-multiple-things.md" />
+    <Content Include="webgl\lessons\webgl-fundamentals.md" />
+    <Content Include="webgl\lessons\webgl-how-it-works.md" />
+    <Content Include="webgl\lessons\webgl-image-processing-continued.md" />
+    <Content Include="webgl\lessons\webgl-image-processing.md" />
+    <Content Include="webgl\lessons\webgl-less-code-more-fun.md" />
+    <Content Include="webgl\lessons\webgl-resizing-the-canvas.md" />
+    <Content Include="webgl\lessons\webgl-scene-graph.md" />
+    <Content Include="webgl\lessons\webgl-setup-and-installation.md" />
+    <Content Include="webgl\lessons\webgl-shaders-and-glsl.md" />
+    <Content Include="webgl\lessons\webgl-text-canvas2d.md" />
+    <Content Include="webgl\lessons\webgl-text-glyphs.md" />
+    <Content Include="webgl\lessons\webgl-text-html.md" />
+    <Content Include="webgl\lessons\webgl-text-texture.md" />
+    <Content Include="webgl-typescript\tsconfig.json" />
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate-better\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-rotation-angle\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-rotation-angle\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-rectangle-translate-better\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>webgl_typescript</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3629</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3629/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>
