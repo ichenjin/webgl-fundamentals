@@ -25,10 +25,10 @@ var webgl_2d_rectangle_translate_better;
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         // Put geometry data into buffer
         setGeometry(gl);
-        var translation = [0, 0];
+        var translation = new Float32Array([0, 0]);
         var width = 100;
         var height = 30;
-        var color = [Math.random(), Math.random(), Math.random(), 1];
+        var color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
         drawScene();
         // Setup a ui.
         webglLessonsHelper.setupSlider("#x", { slide: updatePosition(0), max: gl.canvas.width });

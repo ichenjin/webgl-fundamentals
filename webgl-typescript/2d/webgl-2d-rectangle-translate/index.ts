@@ -27,10 +27,10 @@
         // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-        let translation = [0, 0];
+        let translation = new Float32Array([0, 0]);
         let width = 100;
         let height = 30;
-        let color = [Math.random(), Math.random(), Math.random(), 1];
+        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
 
         drawScene();
 

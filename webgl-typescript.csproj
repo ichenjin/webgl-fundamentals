@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>2.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -163,6 +163,22 @@
     <Content Include="sitemap.xml" />
     <Content Include="toc.html" />
     <Content Include="web.config" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-with-projection\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-with-projection\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-center-f\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-center-f\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-hierarchical\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-hierarchical\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform\index.html" />
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.html" />
     <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.js">
       <DependentUpon>index.ts</DependentUpon>
@@ -663,11 +679,27 @@
     <Content Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-hierarchical\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-center-f\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-with-projection\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-with-projection\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-center-f\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-hierarchical\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-scale\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-rotation-angle\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.ts" />

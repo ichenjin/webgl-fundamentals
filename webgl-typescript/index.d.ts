@@ -37,3 +37,7 @@ declare interface webglLessonsHelper {
     setupSlider(selector: string, options?: any): void;
 }
 declare const webglLessonsHelper: webglLessonsHelper;
+
+declare interface HTMLCanvasElement {
+    getContext(contextId: "webgl"): WebGLRenderingContext;
+}

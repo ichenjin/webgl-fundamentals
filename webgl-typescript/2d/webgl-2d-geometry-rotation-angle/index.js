@@ -1,5 +1,5 @@
-var webgl_2d_rectangle_rotation;
-(function (webgl_2d_rectangle_rotation) {
+var webgl_2d_geometry_rotation;
+(function (webgl_2d_geometry_rotation) {
     function main() {
         // Get A WebGL context
         /** @type {HTMLCanvasElement} */
@@ -26,11 +26,11 @@ var webgl_2d_rectangle_rotation;
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         // Put geometry data into buffer
         setGeometry(gl);
-        var rotation = [0, 1];
-        var translation = [0, 0];
+        var rotation = new Float32Array([0, 1]);
+        var translation = new Float32Array([0, 0]);
         var width = 100;
         var height = 30;
-        var color = [Math.random(), Math.random(), Math.random(), 1];
+        var color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
         drawScene();
         // Setup a ui.
         webglLessonsHelper.setupSlider("#x", { slide: updatePosition(0), max: gl.canvas.width });
@@ -113,5 +113,5 @@ var webgl_2d_rectangle_rotation;
         ]), gl.STATIC_DRAW);
     }
     main();
-})(webgl_2d_rectangle_rotation || (webgl_2d_rectangle_rotation = {}));
+})(webgl_2d_geometry_rotation || (webgl_2d_geometry_rotation = {}));
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-﻿namespace webgl_2d_rectangle_rotation {
+﻿namespace webgl_2d_geometry_rotation {
 
     function main() {
         // Get A WebGL context
@@ -31,11 +31,11 @@
         // Put geometry data into buffer
         setGeometry(gl);
 
-        let rotation = [0, 1];
-        let translation = [0, 0];
+        let rotation = new Float32Array([0, 1]);
+        let translation = new Float32Array([0, 0]);
         let width = 100;
         let height = 30;
-        let color = [Math.random(), Math.random(), Math.random(), 1];
+        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
 
         drawScene();
 
