@@ -41,3 +41,36 @@ declare const webglLessonsHelper: webglLessonsHelper;
 declare interface HTMLCanvasElement {
     getContext(contextId: "webgl"): WebGLRenderingContext;
 }
+
+declare interface Matrix3 extends ArrayLike<number> {
+    0: number;
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+    5: number;
+    6: number;
+    7: number;
+    8: number;
+}
+
+declare interface m3 {
+    multiply(a: Matrix3, b: Matrix3): Matrix3;
+    identity(): Matrix3;
+    projection(width: number, height: number): Matrix3;
+    project(m: Matrix3, width: number, height: number): Matrix3;
+    translation(tx: number, ty: number): Matrix3;
+    translate(m: Matrix3, tx: number, ty: number): Matrix3;
+    rotation(angleInRadians: number): Matrix3;
+    rotate(m: Matrix3, angleInRadians: number): Matrix3;
+    scaling(sx: number, sy: number): Matrix3;
+    scale(m: Matrix3, sx: number, sy: number): Matrix3;
+    dot(x1: number, y1: number, x2: number, y2: number): number;
+    distance(x1: number, y1: number, x2: number, y2: number): number;
+    normalize(x: number, y: number): Array<number>;
+    reflect(ix: number, iy: number, nx: number, ny: number): Array<number>;
+    radToDeg(r: number): number;
+    degToRad(r: number): number;
+}
+
+declare const m3: m3;

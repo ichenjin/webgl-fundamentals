@@ -1,0 +1,63 @@
+﻿<!-- Licensed under a BSD license. See license.html for license -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>WebGL - 2D Geometry Rotation</title>
+    <link href="../../../webgl/resources/webgl-tutorials.css" rel="stylesheet" />
+    <style>
+        #ui {
+            width: 200px;
+        }
+    </style>
+    <script src="../../../webgl/resources/2d-math.js"></script>
+    <script src="../../../webgl/resources/webgl-utils.js"></script>
+    <script src="../../../webgl/resources/webgl-lessons-helper.js"></script>
+</head>
+<body>
+    <div class="description">
+        Drag sliders to translate.
+    </div>
+    <canvas id="canvas"></canvas>
+    <div id="uiContainer">
+        <div id="ui">
+            <div id="x"></div>
+            <div id="y"></div>
+            <div id="angle"></div>
+            <div id="scaleX"></div>
+            <div id="scaleY"></div>
+        </div>
+    </div>
+
+    <!-- vertex shader -->
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 a_position;
+        attribute vec4 a_color;
+        uniform mat3 u_matrix;
+        varying vec4 v_color;
+
+        void main() {
+
+        // Multiply the position by the matrix.
+        gl_Position = vec4((u_matrix * vec3(a_position, 1)).xy, 0, 1);
+
+         v_color = a_color;
+        }
+
+    </script>
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        varying vec4 v_color;
+
+        void main() {
+        gl_FragColor = v_color;
+        }
+    </script>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
