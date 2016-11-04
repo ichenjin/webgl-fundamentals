@@ -215,6 +215,18 @@
     <Content Include="webgl-typescript\Fundamentals\webgl-2d-triangle-with-position-for-color\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-processing\index.html" />
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-processing\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-3x3-convolution\index.html" />
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-3x3-convolution\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-blend\index.html" />
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-blend\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-my\index.html" />
     <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-my\index.js">
       <DependentUpon>index.ts</DependentUpon>
@@ -733,6 +745,15 @@
     <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-my\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-blend\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-3x3-convolution\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image-processing\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -751,6 +772,9 @@
     <TypeScriptCompile Include="webgl-typescript\Fundamentals\webgl-2d-rectangle-with-2-colors\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\Fundamentals\webgl-2d-rectangles\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\Fundamentals\webgl-2d-triangle-with-position-for-color\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image-processing\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image-3x3-convolution\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image-blend\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image-my\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\index.d.ts" />
