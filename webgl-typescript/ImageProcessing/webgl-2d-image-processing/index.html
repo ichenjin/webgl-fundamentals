@@ -6,6 +6,36 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="../../../webgl/resources/webgl-tutorials.css" rel="stylesheet" />
+    <style>
+        #ui {
+            font-size: x-small;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .tDnD_whileDrag {
+            background-color: #daf !important;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #def;
+        }
+
+        td {
+            border-width: 0px;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script src="../../../webgl/resources/jquery-1.7.1.min.js"></script>
+    <script src="../../../webgl/resources/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="../../../webgl/resources/jquery.tablednd_0_5.js"></script>
     <script src="../../../webgl/resources/webgl-utils.js"></script>
     <script src="../../../webgl/resources/webgl-lessons-helper.js"></script>
 </head>
@@ -20,6 +50,7 @@
         attribute vec2 a_texCoord;
 
         uniform vec2 u_resolution;
+        uniform float u_flipY;
 
         varying vec2 v_texCoord;
 
@@ -33,7 +64,7 @@
         // convert from 0->2 to -1->+1 (clipspace)
         vec2 clipSpace = zeroToTwo - 1.0;
 
-        gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        gl_Position = vec4(clipSpace * vec2(1, u_flipY), 0, 1);
 
         // pass the texCoord to the fragment shader
         // The GPU will interpolate this value between points.
@@ -65,10 +96,7 @@
         texture2D(u_image, v_texCoord + onePixel * vec2(-1,  1)) * u_kernel[6] +
         texture2D(u_image, v_texCoord + onePixel * vec2( 0,  1)) * u_kernel[7] +
         texture2D(u_image, v_texCoord + onePixel * vec2( 1,  1)) * u_kernel[8] ;
-
-        // Divide the sum by the weight but just use rgb
-        // we'll set alpha to 1.0
-        gl_FragColor = vec4((colorSum / u_kernelWeight).rgb, 1.0);
+        gl_FragColor = vec4((colorSum / u_kernelWeight).rgb, 1);
         }
     </script>
     <script src="index.js"></script>

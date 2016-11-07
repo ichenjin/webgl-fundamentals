@@ -60,16 +60,39 @@
         }
 
         // Create a texture and put the image in it.
-        var originalImageTexture = createAndSetupTexture(gl);
-
+        let originalImageTexture = createAndSetupTexture(gl);
         // Upload the image into the texture.
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+        // create 2 textures and attach them to framebuffers.
+        let textures: Array<WebGLTexture> = [];
+        let framebuffers: Array<WebGLFramebuffer> = [];
+
+        for (let ii = 0; ii < 2; ++ii) {
+            let texture = createAndSetupTexture(gl);
+            textures.push(texture);
+
+            // make the texture the same size as the image
+            gl.texImage2D(
+                gl.TEXTURE_2D, 0, gl.RGBA, image.width, image.height, 0,
+                gl.RGBA, gl.UNSIGNED_BYTE, null);
+
+            // Create a framebuffer
+            let fbo = gl.createFramebuffer();
+            framebuffers.push(fbo);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+
+            // Attach a texture to it.
+            gl.framebufferTexture2D(
+                gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        }
 
         // lookup uniforms
         let resolutionLocation = gl.getUniformLocation(program, "u_resolution");
         let textureSizeLocation = gl.getUniformLocation(program, "u_textureSize");
         let kernelLocation = gl.getUniformLocation(program, "u_kernel[0]");
         let kernelWeightLocation = gl.getUniformLocation(program, "u_kernelWeight");
+        let flipYLocation = gl.getUniformLocation(program, "u_flipY");
 
         // Define several convolution kernels
         let kernels = {
@@ -174,25 +197,53 @@
                 0, 1, 2
             ]
         };
-        let initialSelection = 'edgeDetect2';
+      
+        let effects: Array<{ name: string, on?: boolean }> = [
+            { name: "gaussianBlur3", on: true },
+            { name: "gaussianBlur3", on: true },
+            { name: "gaussianBlur3", on: true },
+            { name: "sharpness", },
+            { name: "sharpness", },
+            { name: "sharpness", },
+            { name: "sharpen", },
+            { name: "sharpen", },
+            { name: "sharpen", },
+            { name: "unsharpen", },
+            { name: "unsharpen", },
+            { name: "unsharpen", },
+            { name: "emboss", on: true },
+            { name: "edgeDetect", },
+            { name: "edgeDetect", },
+            { name: "edgeDetect3", },
+            { name: "edgeDetect3", },
+        ];
 
         // Setup UI to pick kernels.
         let ui = document.getElementById("ui");
-        let select = document.createElement("select")
-        for (let name in kernels) {
-            let option = document.createElement("option");
-            option.value = name;
-            if (name == initialSelection) {
-                option.selected = true;
+        let table = document.createElement("table");
+        let tbody = document.createElement("tbody");
+        for (let ii = 0; ii < effects.length; ++ii) {
+            let effect = effects[ii];
+            let tr = document.createElement("tr");
+            let td = document.createElement("td");
+            let chk = document.createElement("input");
+            chk.value = effect.name;
+            chk.type = "checkbox";
+            if (effect.on) {
+                chk.checked = true;
             }
-            option.appendChild(document.createTextNode(name));
-            select.appendChild(option);
+            chk.onchange = () => drawEffects();
+            td.appendChild(chk);
+            td.appendChild(document.createTextNode('≡ ' + effect.name));
+            tr.appendChild(td);
+            tbody.appendChild(tr);
         }
-        select.onchange = function (event) {
-            drawWithKernel(this.options[this.selectedIndex].value);
-        };
-        ui.appendChild(select);
-        drawWithKernel(initialSelection);
+        table.appendChild(tbody);
+        ui.appendChild(table);
+        ($("#ui table") as any).tableDnD({ onDrop: drawEffects });
+
+        drawEffects();
+
 
         function computeKernelWeight(kernel) {
             let weight = kernel.reduce(function (prev, curr) {
@@ -201,11 +252,8 @@
             return weight <= 0 ? 1 : weight;
         }
 
-        function drawWithKernel(name) {
+        function drawEffects(name?: string) {
             webglUtils.resizeCanvasToDisplaySize(gl.canvas);
-
-            // Tell WebGL how to convert from clip space to pixels
-            gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
             // Clear the canvas
             gl.clearColor(0, 0, 0, 0);
@@ -244,19 +292,59 @@
             gl.vertexAttribPointer(
                 texcoordLocation, size, type, normalize, stride, offset)
 
-            // set the resolution
-            gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
-
             // set the size of the image
             gl.uniform2f(textureSizeLocation, image.width, image.height);
 
+            // start with the original image
+            gl.bindTexture(gl.TEXTURE_2D, originalImageTexture);
+
+            // don't y flip images while drawing to the textures
+            gl.uniform1f(flipYLocation, 1);
+
+            // loop through each effect we want to apply.
+            let count = 0;
+            for (let ii = 0; ii < tbody.rows.length; ++ii) {
+                let checkbox = <HTMLInputElement>tbody.rows[ii].firstChild.firstChild;
+                if (checkbox.checked) {
+                    // Setup to draw into one of the framebuffers.
+                    setFramebuffer(framebuffers[count % 2], image.width, image.height);
+
+                    drawWithKernel(checkbox.value);
+
+                    // for the next draw, use the texture we just rendered to.
+                    gl.bindTexture(gl.TEXTURE_2D, textures[count % 2]);
+
+                    // increment count so we use the other texture next time.
+                    ++count;
+                }
+            }
+
+            // finally draw the result to the canvas.
+            gl.uniform1f(flipYLocation, -1);  // need to y flip for canvas
+            setFramebuffer(null, gl.canvas.width, gl.canvas.height);
+            drawWithKernel("normal");
+        }
+
+        function setFramebuffer(fbo, width, height) {
+            // make this the framebuffer we are rendering to.
+            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+
+            // Tell the shader the resolution of the framebuffer.
+            gl.uniform2f(resolutionLocation, width, height);
+
+            // Tell webgl the viewport setting needed for framebuffer.
+            gl.viewport(0, 0, width, height);
+        }
+
+
+        function drawWithKernel(name) {
             // set the kernel and it's weight
             gl.uniform1fv(kernelLocation, kernels[name]);
             gl.uniform1f(kernelWeightLocation, computeKernelWeight(kernels[name]));
 
             // Draw the rectangle.
             let primitiveType = gl.TRIANGLES;
-            offset = 0;
+            let offset = 0;
             let count = 6;
             gl.drawArrays(primitiveType, offset, count);
         }
