@@ -74,3 +74,68 @@ declare interface m3 {
 }
 
 declare const m3: m3;
+
+declare interface Vector3 extends ArrayLike<number> {
+    0: number;
+    1: number;
+    2: number;
+}
+
+declare interface Vector4 extends ArrayLike<number> {
+    0: number;
+    1: number;
+    2: number;
+    3: number;
+}
+
+declare interface Matrix4 extends ArrayLike<number> {
+    0: number;
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+    5: number;
+    6: number;
+    7: number;
+    8: number;
+    9: number;
+    10: number;
+    11: number;
+    12: number;
+    13: number;
+    14: number;
+    15: number;
+}
+
+declare interface m4 {
+    multiply(a: Matrix4, b: Matrix4, dst?: Matrix4): Matrix4;
+    subtractVectors(a: Vector3, b: Vector3, dst?: Vector3): Vector3;
+    normalize(v: Vector3, dst?: Vector3): Vector3;
+    cross(a: Vector3, b: Vector3, dst?: Vector3): Vector3;
+    identity(dst?: Matrix4): Matrix4;
+    transpose(m: Matrix4, dst?: Matrix4): Matrix4;
+    lookAt(cameraPosition: Vector3, target: Vector3, up: Vector3, dst?: Matrix4): Matrix4;
+    perspective(fieldOfViewInRadians: number, aspect: number, near: number, far: number, dst?: Matrix4): Matrix4;
+    orthographic(left: number, right: number, bottom: number, top: number, near: number, far: number, dst?: Matrix4): Matrix4;
+    frustum(left: number, right: number, bottom: number, top: number, near: number, far: number, dst?: Matrix4): Matrix4;
+    translation(tx: number, ty: number, tz: number, dst?: Matrix4): Matrix4;
+    translate(m: Matrix4, tx: number, ty: number, tz: number, dst?: Matrix4): Matrix4;
+    xRotation(angleInRadians: number, dst?: Matrix4): Matrix4;
+    xRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4;
+    yRotation(angleInRadians: number, dst?: Matrix4): Matrix4;
+    yRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4;
+    zRotation(angleInRadians: number, dst?: Matrix4): Matrix4;
+    zRotate(m: Matrix4, angleInRadians: number, dst?: Matrix4): Matrix4;
+    axisRotation(axis: Vector3, angleInRadians: number, dst?: Matrix4): Matrix4;
+    axisRotate(m: Matrix4, axis: Vector3, angleInRadians: number, dst?: Matrix4): Matrix4;
+    scaling(sx: number, sy: number, sz: number, dst?: Matrix4): Matrix4;
+    scale(m: Matrix4, sx: number, sy: number, sz: number, dst?: Matrix4): Matrix4;
+    inverse(m: Matrix4, dst?: Matrix4): Matrix4;
+    transformVector(m: Matrix4, v: Vector4, dst?: Vector4): Vector4;
+    transformPoint(m: Matrix4, v: Vector3, dst?: Vector4): Vector4;
+    transformDirection(m: Matrix4, v: Vector3, dst?: Vector4): Vector4;
+    transformNormal(m: Matrix4, v: Vector3, dst?: Vector3): Vector3
+    copy(src: Matrix4, dst?: Matrix4);
+}
+
+declare const m4: m4;
