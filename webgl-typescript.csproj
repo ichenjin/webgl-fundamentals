@@ -203,6 +203,22 @@
     <Content Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-camera-lookat\index.html" />
+    <Content Include="webgl-typescript\3D\webgl-3d-camera-lookat\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-camera\index.html" />
+    <Content Include="webgl-typescript\3D\webgl-3d-camera\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-matrix\index.html" />
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-matrix\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-w-matrix\index.html" />
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-w-matrix\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="webgl-typescript\3D\webgl-3d-perspective-w\index.html" />
     <Content Include="webgl-typescript\3D\webgl-3d-perspective-w\index.js">
       <DependentUpon>index.ts</DependentUpon>
@@ -261,6 +277,22 @@
     </Content>
     <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image\index.html" />
     <Content Include="webgl-typescript\ImageProcessing\webgl-2d-image\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures-texture-coords-mapped\index.html" />
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures-texture-coords-mapped\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures\index.html" />
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-animation\webgl-animation\index.html" />
+    <Content Include="webgl-typescript\misc-animation\webgl-animation\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.html" />
+    <Content Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
     <Content Include="webgl\embed-test.html" />
@@ -803,6 +835,30 @@
     <Content Include="webgl-typescript\3D\webgl-3d-perspective-w\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-w-matrix\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-perspective-matrix\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-camera\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\3D\webgl-3d-camera-lookat\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-animation\webgl-animation\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures-texture-coords-mapped\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -818,6 +874,10 @@
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-rotation\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-rectangle-translate-better\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-rectangle-translate\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-camera-lookat\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-camera\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-perspective-matrix\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-perspective-w-matrix\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-perspective-w\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-perspective\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\3D\webgl-3d-final\index.ts" />
@@ -834,6 +894,10 @@
     <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image-my\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\ImageProcessing\webgl-2d-image\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\index.d.ts" />
+    <TypeScriptCompile Include="webgl-typescript\misc-3dtexture\webgl-3d-textures-texture-coords-mapped\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\misc-3dtexture\webgl-3d-textures\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>

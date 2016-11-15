@@ -1,4 +1,4 @@
-﻿namespace webgl_3d_perspective {
+﻿namespace webgl_3d_perspective_w_matrix {
 
     function radToDeg(r) {
         return r * 180 / Math.PI;
@@ -7,16 +7,6 @@
     function degToRad(d) {
         return d * Math.PI / 180;
     }
-
-    m4.projection = function (width: number, height: number, depth: number): Matrix4 {
-        // Note: This matrix flips the Y axis so 0 is at the top.
-        return [
-            2 / width, 0, 0, 0,
-            0, -2 / height, 0, 0,
-            0, 0, 2 / depth, 0,
-            -1, 1, 0, 1,
-        ];
-    };
 
     function main() {
         // Get A WebGL context
@@ -30,7 +20,7 @@
         }
 
         // setup GLSL program
-        let program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
+        let program = webglUtils.createProgramFromScripts(gl, ["3d-vertex-shader", "3d-fragment-shader"]);
         gl.useProgram(program);
 
         gl.enable(gl.CULL_FACE);
@@ -38,10 +28,10 @@
 
         // look up where the vertex data needs to go.
         let positionLocation = gl.getAttribLocation(program, "a_position");
-        // lookup uniforms
         let colorLocation = gl.getAttribLocation(program, "a_color");
+
+        // lookup uniforms
         let matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        let fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
 
         // Create a buffer to put positions in
         let positionBuffer = gl.createBuffer();
@@ -57,18 +47,20 @@
         setColors(gl);
 
         let fudgeFactor = 1;
-        let translation = new Float32Array([45, 150, 0]);
-        let rotation = new Float32Array([degToRad(40), degToRad(25), degToRad(325)]);
+        let translation = new Float32Array([-150, 0, -360]);
+        let rotation = new Float32Array([degToRad(190), degToRad(40), degToRad(320)]);
         let scale = new Float32Array([1, 1, 1]);
-        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
+        let fieldOfViewRadians = degToRad(60);
+        let rotationSpeed = 1.2;
+        let then = 0;
 
-        drawScene();
+        requestAnimationFrame(drawScene);
 
         // Setup a ui.
-        webglLessonsHelper.setupSlider("#fudgeFactor", { value: fudgeFactor, slide: updateFudgeFactor, max: 2, step: 0.001, precision: 3 })
-        webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
-        webglLessonsHelper.setupSlider("#y", { value: translation[1], slide: updatePosition(1), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#z", { value: translation[2], slide: updatePosition(2), max: gl.canvas.height });
+        webglLessonsHelper.setupSlider("#fieldOfView", { value: radToDeg(fieldOfViewRadians), slide: updateFieldOfView, min: 1, max: 179 });
+        webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), min: -200, max: 200 });
+        webglLessonsHelper.setupSlider("#y", { value: translation[1], slide: updatePosition(1), min: -200, max: 200 });
+        webglLessonsHelper.setupSlider("#z", { value: translation[2], slide: updatePosition(2), min: -1000, max: 0 });
         webglLessonsHelper.setupSlider("#angleX", { value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360 });
         webglLessonsHelper.setupSlider("#angleY", { value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360 });
         webglLessonsHelper.setupSlider("#angleZ", { value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360 });
@@ -76,9 +68,9 @@
         webglLessonsHelper.setupSlider("#scaleY", { value: scale[1], slide: updateScale(1), min: -5, max: 5, step: 0.01, precision: 2 });
         webglLessonsHelper.setupSlider("#scaleZ", { value: scale[2], slide: updateScale(2), min: -5, max: 5, step: 0.01, precision: 2 });
 
-        function updateFudgeFactor(event, ui) {
-            fudgeFactor = ui.value;
-            drawScene();
+        function updateFieldOfView(event, ui) {
+            fieldOfViewRadians = degToRad(ui.value);
+            //drawScene();
         }
 
         function updateRotation(index) {
@@ -86,26 +78,36 @@
                 var angleInDegrees = ui.value;
                 var angleInRadians = angleInDegrees * Math.PI / 180;
                 rotation[index] = angleInRadians;
-                drawScene();
+                //drawScene();
             }
         }
 
         function updateScale(index) {
             return function (event, ui) {
                 scale[index] = ui.value;
-                drawScene();
+                //drawScene();
             }
         }
 
         function updatePosition(index) {
             return function (event, ui) {
                 translation[index] = ui.value;
-                drawScene();
+                //drawScene();
             }
         }
 
         // Draw a the scene.
-        function drawScene() {
+        function drawScene(now) {
+
+            // Convert to seconds
+            now *= 0.001;
+            // Subtract the previous time from the current time
+            let deltaTime = now - then;
+            // Remember the current time for the next frame.
+            then = now;
+
+            // Every frame increase the rotation a little.
+            rotation[1] += rotationSpeed * deltaTime;
 
             webglUtils.resizeCanvasToDisplaySize(gl.canvas);
             // Tell WebGL how to convert from clip space to pixels
@@ -148,13 +150,10 @@
                 colorLocation, size, type, normalize, stride, offset)
 
 
-            let left = 0;
-            let right = gl.canvas.clientWidth;
-            let bottom = gl.canvas.clientHeight;
-            let top = 0;
-            let near = 200;
-            let far = -200;
-            let matrix = m4.orthographic(left, right, bottom, top, near, far);
+            let aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+            let zNear = 1;
+            let zFar = 2000;
+            let matrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
 
             // Compute the matrices
             matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
@@ -167,13 +166,15 @@
             gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
 
             // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
+            //gl.uniform1f(fudgeLocation, fudgeFactor);
 
             // Draw the rectangle.
             let primitiveType = gl.TRIANGLES;
             offset = 0;
             let count = 16 * 6;
             gl.drawArrays(primitiveType, offset, count);
+
+            requestAnimationFrame(drawScene);
         }
     }
 

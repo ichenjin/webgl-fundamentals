@@ -1,5 +1,5 @@
-var webgl_3d_perspective;
-(function (webgl_3d_perspective) {
+var webgl_3d_perspective_w_matrix;
+(function (webgl_3d_perspective_w_matrix) {
     function radToDeg(r) {
         return r * 180 / Math.PI;
     }
@@ -15,6 +15,14 @@ var webgl_3d_perspective;
             -1, 1, 0, 1,
         ];
     };
+    function makeZToWMatrix(fudgeFactor) {
+        return [
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, fudgeFactor,
+            0, 0, 0, 1,
+        ];
+    }
     function main() {
         // Get A WebGL context
         /** @type {HTMLCanvasElement} */
@@ -32,10 +40,9 @@ var webgl_3d_perspective;
         gl.enable(gl.DEPTH_TEST);
         // look up where the vertex data needs to go.
         var positionLocation = gl.getAttribLocation(program, "a_position");
-        // lookup uniforms
         var colorLocation = gl.getAttribLocation(program, "a_color");
+        // lookup uniforms
         var matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        var fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
         // Create a buffer to put positions in
         var positionBuffer = gl.createBuffer();
         // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
@@ -120,14 +127,8 @@ var webgl_3d_perspective;
             stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
             offset = 0; // start at the beginning of the buffer
             gl.vertexAttribPointer(colorLocation, size, type, normalize, stride, offset);
-            //let left = 0;
-            //let right = gl.canvas.clientWidth;
-            //let bottom = gl.canvas.clientHeight;
-            //let top = 0;
-            //let near = 200;
-            //let far = -200;
-            //let matrix = m4.orthographic(left, right, bottom, top, near, far);
-            var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+            var matrix = makeZToWMatrix(fudgeFactor);
+            matrix = m4.multiply(matrix, m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400));
             // Compute the matrices
             matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
             matrix = m4.xRotate(matrix, rotation[0]);
@@ -137,7 +138,7 @@ var webgl_3d_perspective;
             // Set the matrix.
             gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
             // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
+            //gl.uniform1f(fudgeLocation, fudgeFactor);
             // Draw the rectangle.
             var primitiveType = gl.TRIANGLES;
             offset = 0;
@@ -378,5 +379,5 @@ var webgl_3d_perspective;
             160, 160, 220]), gl.STATIC_DRAW);
     }
     main();
-})(webgl_3d_perspective || (webgl_3d_perspective = {}));
+})(webgl_3d_perspective_w_matrix || (webgl_3d_perspective_w_matrix = {}));
 //# sourceMappingURL=index.js.map

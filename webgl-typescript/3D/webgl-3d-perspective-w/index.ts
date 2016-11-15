@@ -8,6 +8,16 @@
         return d * Math.PI / 180;
     }
 
+    m4.projection = function (width: number, height: number, depth: number): Matrix4 {
+        // Note: This matrix flips the Y axis so 0 is at the top.
+        return [
+            2 / width, 0, 0, 0,
+            0, -2 / height, 0, 0,
+            0, 0, 2 / depth, 0,
+            -1, 1, 0, 1,
+        ];
+    };
+
     function main() {
         // Get A WebGL context
         /** @type {HTMLCanvasElement} */
@@ -138,13 +148,14 @@
                 colorLocation, size, type, normalize, stride, offset)
 
 
-            let left = 0;
-            let right = gl.canvas.clientWidth;
-            let bottom = gl.canvas.clientHeight;
-            let top = 0;
-            let near = 200;
-            let far = -200;
-            let matrix = m4.orthographic(left, right, bottom, top, near, far);
+            //let left = 0;
+            //let right = gl.canvas.clientWidth;
+            //let bottom = gl.canvas.clientHeight;
+            //let top = 0;
+            //let near = 200;
+            //let far = -200;
+            //let matrix = m4.orthographic(left, right, bottom, top, near, far);
+            let matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
 
             // Compute the matrices
             matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);

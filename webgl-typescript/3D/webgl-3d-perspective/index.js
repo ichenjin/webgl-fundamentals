@@ -6,6 +6,15 @@ var webgl_3d_perspective;
     function degToRad(d) {
         return d * Math.PI / 180;
     }
+    m4.projection = function (width, height, depth) {
+        // Note: This matrix flips the Y axis so 0 is at the top.
+        return [
+            2 / width, 0, 0, 0,
+            0, -2 / height, 0, 0,
+            0, 0, 2 / depth, 0,
+            -1, 1, 0, 1,
+        ];
+    };
     function main() {
         // Get A WebGL context
         /** @type {HTMLCanvasElement} */

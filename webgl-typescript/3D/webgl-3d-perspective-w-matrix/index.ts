@@ -1,4 +1,4 @@
-﻿namespace webgl_3d_perspective {
+﻿namespace webgl_3d_perspective_w_matrix {
 
     function radToDeg(r) {
         return r * 180 / Math.PI;
@@ -17,6 +17,15 @@
             -1, 1, 0, 1,
         ];
     };
+
+    function makeZToWMatrix(fudgeFactor: number): Matrix4 {
+        return [
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, fudgeFactor,
+            0, 0, 0, 1,
+        ];
+    }
 
     function main() {
         // Get A WebGL context
@@ -38,10 +47,10 @@
 
         // look up where the vertex data needs to go.
         let positionLocation = gl.getAttribLocation(program, "a_position");
-        // lookup uniforms
         let colorLocation = gl.getAttribLocation(program, "a_color");
+
+        // lookup uniforms
         let matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        let fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
 
         // Create a buffer to put positions in
         let positionBuffer = gl.createBuffer();
@@ -147,14 +156,8 @@
             gl.vertexAttribPointer(
                 colorLocation, size, type, normalize, stride, offset)
 
-
-            let left = 0;
-            let right = gl.canvas.clientWidth;
-            let bottom = gl.canvas.clientHeight;
-            let top = 0;
-            let near = 200;
-            let far = -200;
-            let matrix = m4.orthographic(left, right, bottom, top, near, far);
+            let matrix = makeZToWMatrix(fudgeFactor);
+            matrix = m4.multiply(matrix, m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400));
 
             // Compute the matrices
             matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
@@ -167,7 +170,7 @@
             gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
 
             // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
+            //gl.uniform1f(fudgeLocation, fudgeFactor);
 
             // Draw the rectangle.
             let primitiveType = gl.TRIANGLES;

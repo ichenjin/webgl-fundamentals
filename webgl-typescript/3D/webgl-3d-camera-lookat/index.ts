@@ -1,4 +1,4 @@
-﻿namespace webgl_3d_perspective {
+﻿namespace webgl_3d_camera_lookat {
 
     function radToDeg(r) {
         return r * 180 / Math.PI;
@@ -7,16 +7,6 @@
     function degToRad(d) {
         return d * Math.PI / 180;
     }
-
-    m4.projection = function (width: number, height: number, depth: number): Matrix4 {
-        // Note: This matrix flips the Y axis so 0 is at the top.
-        return [
-            2 / width, 0, 0, 0,
-            0, -2 / height, 0, 0,
-            0, 0, 2 / depth, 0,
-            -1, 1, 0, 1,
-        ];
-    };
 
     function main() {
         // Get A WebGL context
@@ -30,7 +20,7 @@
         }
 
         // setup GLSL program
-        let program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
+        let program = webglUtils.createProgramFromScripts(gl, ["3d-vertex-shader", "3d-fragment-shader"]);
         gl.useProgram(program);
 
         gl.enable(gl.CULL_FACE);
@@ -38,10 +28,10 @@
 
         // look up where the vertex data needs to go.
         let positionLocation = gl.getAttribLocation(program, "a_position");
-        // lookup uniforms
         let colorLocation = gl.getAttribLocation(program, "a_color");
+
+        // lookup uniforms
         let matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        let fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
 
         // Create a buffer to put positions in
         let positionBuffer = gl.createBuffer();
@@ -56,52 +46,16 @@
         // Put the colors in the buffer.
         setColors(gl);
 
-        let fudgeFactor = 1;
-        let translation = new Float32Array([45, 150, 0]);
-        let rotation = new Float32Array([degToRad(40), degToRad(25), degToRad(325)]);
-        let scale = new Float32Array([1, 1, 1]);
-        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
+        let cameraAngleRadians = degToRad(0);
+        let fieldOfViewRadians = degToRad(60);
 
         drawScene();
 
         // Setup a ui.
-        webglLessonsHelper.setupSlider("#fudgeFactor", { value: fudgeFactor, slide: updateFudgeFactor, max: 2, step: 0.001, precision: 3 })
-        webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
-        webglLessonsHelper.setupSlider("#y", { value: translation[1], slide: updatePosition(1), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#z", { value: translation[2], slide: updatePosition(2), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#angleX", { value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360 });
-        webglLessonsHelper.setupSlider("#angleY", { value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360 });
-        webglLessonsHelper.setupSlider("#angleZ", { value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360 });
-        webglLessonsHelper.setupSlider("#scaleX", { value: scale[0], slide: updateScale(0), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleY", { value: scale[1], slide: updateScale(1), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleZ", { value: scale[2], slide: updateScale(2), min: -5, max: 5, step: 0.01, precision: 2 });
-
-        function updateFudgeFactor(event, ui) {
-            fudgeFactor = ui.value;
+        webglLessonsHelper.setupSlider("#cameraAngle", { value: radToDeg(cameraAngleRadians), slide: updateCameraAngle, min: -360, max: 360 });
+        function updateCameraAngle(event, ui) {
+            cameraAngleRadians = degToRad(ui.value);
             drawScene();
-        }
-
-        function updateRotation(index) {
-            return function (event, ui) {
-                var angleInDegrees = ui.value;
-                var angleInRadians = angleInDegrees * Math.PI / 180;
-                rotation[index] = angleInRadians;
-                drawScene();
-            }
-        }
-
-        function updateScale(index) {
-            return function (event, ui) {
-                scale[index] = ui.value;
-                drawScene();
-            }
-        }
-
-        function updatePosition(index) {
-            return function (event, ui) {
-                translation[index] = ui.value;
-                drawScene();
-            }
         }
 
         // Draw a the scene.
@@ -147,169 +101,220 @@
             gl.vertexAttribPointer(
                 colorLocation, size, type, normalize, stride, offset)
 
+            let aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+            let zNear = 1;
+            let zFar = 2000;
+            let projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
 
-            let left = 0;
-            let right = gl.canvas.clientWidth;
-            let bottom = gl.canvas.clientHeight;
-            let top = 0;
-            let near = 200;
-            let far = -200;
-            let matrix = m4.orthographic(left, right, bottom, top, near, far);
+            let numFs = 5;
+            let radius = 200;
 
-            // Compute the matrices
-            matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
-            matrix = m4.xRotate(matrix, rotation[0]);
-            matrix = m4.yRotate(matrix, rotation[1]);
-            matrix = m4.zRotate(matrix, rotation[2]);
-            matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+            // Compute the position of the first F
+            // the target which camera will lookat 
+            let fPosition: Vector3 = [radius, 0, 0];
 
-            // Set the matrix.
-            gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
+            // Compute a matrix for the camera
+            let cameraMatrix = m4.yRotation(cameraAngleRadians);
+            cameraMatrix = m4.translate(cameraMatrix, 0, 0, radius * 1.5);
 
-            // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
+            // Get the camera's postion from the matrix we computed
+            let cameraPosition: Vector3 = [
+                cameraMatrix[12],
+                cameraMatrix[13],
+                cameraMatrix[14],
+            ];
 
-            // Draw the rectangle.
-            let primitiveType = gl.TRIANGLES;
-            offset = 0;
-            let count = 16 * 6;
-            gl.drawArrays(primitiveType, offset, count);
+            let up: Vector3 = [0, 1, 0];
+
+            // Compute the camera's matrix using look at.
+            cameraMatrix = m4.lookAt(cameraPosition, fPosition, up);
+
+            // Make a view matrix from the camera matrix
+            let viewMatrix = m4.inverse(cameraMatrix);
+
+            // Compute a view projection matrix
+            let viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
+
+            for (let ii = 0; ii < numFs; ++ii) {
+                let angle = ii * Math.PI * 2 / numFs;
+                let x = Math.cos(angle) * radius;
+                let y = Math.sin(angle) * radius
+
+                // starting with the view projection matrix
+                // compute a matrix for the F
+                let matrix = m4.translate(viewProjectionMatrix, x, 0, y);
+
+                // Set the matrix.
+                gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
+
+                // Draw the geometry.
+                let primitiveType = gl.TRIANGLES;
+                let offset = 0;
+                let count = 16 * 6;
+                gl.drawArrays(primitiveType, offset, count);
+            }
         }
     }
 
     // Fill the buffer with the values that define a letter 'F'.
     function setGeometry(gl: WebGLRenderingContext) {
-        gl.bufferData(
-            gl.ARRAY_BUFFER,
-            new Float32Array([
-                // left column front
-                0, 0, 0,
-                0, 150, 0,
-                30, 0, 0,
-                0, 150, 0,
-                30, 150, 0,
-                30, 0, 0,
+        function vectorMultiply(v: Vector4, m: Matrix4): Array<number> {
+            let dst: Array<number> = [];
+            for (let i = 0; i < 4; ++i) {
+                dst[i] = 0.0;
+                for (let j = 0; j < 4; ++j)
+                    dst[i] += v[j] * m[j * 4 + i];
+            }
+            return dst;
+        }
 
-                // top rung front
-                30, 0, 0,
-                30, 30, 0,
-                100, 0, 0,
-                30, 30, 0,
-                100, 30, 0,
-                100, 0, 0,
+        let positions = new Float32Array([
+            // left column front
+            0, 0, 0,
+            0, 150, 0,
+            30, 0, 0,
+            0, 150, 0,
+            30, 150, 0,
+            30, 0, 0,
 
-                // middle rung front
-                30, 60, 0,
-                30, 90, 0,
-                67, 60, 0,
-                30, 90, 0,
-                67, 90, 0,
-                67, 60, 0,
+            // top rung front
+            30, 0, 0,
+            30, 30, 0,
+            100, 0, 0,
+            30, 30, 0,
+            100, 30, 0,
+            100, 0, 0,
 
-                // left column back
-                0, 0, 30,
-                30, 0, 30,
-                0, 150, 30,
-                0, 150, 30,
-                30, 0, 30,
-                30, 150, 30,
+            // middle rung front
+            30, 60, 0,
+            30, 90, 0,
+            67, 60, 0,
+            30, 90, 0,
+            67, 90, 0,
+            67, 60, 0,
 
-                // top rung back
-                30, 0, 30,
-                100, 0, 30,
-                30, 30, 30,
-                30, 30, 30,
-                100, 0, 30,
-                100, 30, 30,
+            // left column back
+            0, 0, 30,
+            30, 0, 30,
+            0, 150, 30,
+            0, 150, 30,
+            30, 0, 30,
+            30, 150, 30,
 
-                // middle rung back
-                30, 60, 30,
-                67, 60, 30,
-                30, 90, 30,
-                30, 90, 30,
-                67, 60, 30,
-                67, 90, 30,
+            // top rung back
+            30, 0, 30,
+            100, 0, 30,
+            30, 30, 30,
+            30, 30, 30,
+            100, 0, 30,
+            100, 30, 30,
 
-                // top
-                0, 0, 0,
-                100, 0, 0,
-                100, 0, 30,
-                0, 0, 0,
-                100, 0, 30,
-                0, 0, 30,
+            // middle rung back
+            30, 60, 30,
+            67, 60, 30,
+            30, 90, 30,
+            30, 90, 30,
+            67, 60, 30,
+            67, 90, 30,
 
-                // top rung right
-                100, 0, 0,
-                100, 30, 0,
-                100, 30, 30,
-                100, 0, 0,
-                100, 30, 30,
-                100, 0, 30,
+            // top
+            0, 0, 0,
+            100, 0, 0,
+            100, 0, 30,
+            0, 0, 0,
+            100, 0, 30,
+            0, 0, 30,
 
-                // under top rung
-                30, 30, 0,
-                30, 30, 30,
-                100, 30, 30,
-                30, 30, 0,
-                100, 30, 30,
-                100, 30, 0,
+            // top rung right
+            100, 0, 0,
+            100, 30, 0,
+            100, 30, 30,
+            100, 0, 0,
+            100, 30, 30,
+            100, 0, 30,
 
-                // between top rung and middle
-                30, 30, 0,
-                30, 60, 30,
-                30, 30, 30,
-                30, 30, 0,
-                30, 60, 0,
-                30, 60, 30,
+            // under top rung
+            30, 30, 0,
+            30, 30, 30,
+            100, 30, 30,
+            30, 30, 0,
+            100, 30, 30,
+            100, 30, 0,
 
-                // top of middle rung
-                30, 60, 0,
-                67, 60, 30,
-                30, 60, 30,
-                30, 60, 0,
-                67, 60, 0,
-                67, 60, 30,
+            // between top rung and middle
+            30, 30, 0,
+            30, 60, 30,
+            30, 30, 30,
+            30, 30, 0,
+            30, 60, 0,
+            30, 60, 30,
 
-                // right of middle rung
-                67, 60, 0,
-                67, 90, 30,
-                67, 60, 30,
-                67, 60, 0,
-                67, 90, 0,
-                67, 90, 30,
+            // top of middle rung
+            30, 60, 0,
+            67, 60, 30,
+            30, 60, 30,
+            30, 60, 0,
+            67, 60, 0,
+            67, 60, 30,
 
-                // bottom of middle rung.
-                30, 90, 0,
-                30, 90, 30,
-                67, 90, 30,
-                30, 90, 0,
-                67, 90, 30,
-                67, 90, 0,
+            // right of middle rung
+            67, 60, 0,
+            67, 90, 30,
+            67, 60, 30,
+            67, 60, 0,
+            67, 90, 0,
+            67, 90, 30,
 
-                // right of bottom
-                30, 90, 0,
-                30, 150, 30,
-                30, 90, 30,
-                30, 90, 0,
-                30, 150, 0,
-                30, 150, 30,
+            // bottom of middle rung.
+            30, 90, 0,
+            30, 90, 30,
+            67, 90, 30,
+            30, 90, 0,
+            67, 90, 30,
+            67, 90, 0,
 
-                // bottom
-                0, 150, 0,
-                0, 150, 30,
-                30, 150, 30,
-                0, 150, 0,
-                30, 150, 30,
-                30, 150, 0,
+            // right of bottom
+            30, 90, 0,
+            30, 150, 30,
+            30, 90, 30,
+            30, 90, 0,
+            30, 150, 0,
+            30, 150, 30,
 
-                // left side
-                0, 0, 0,
-                0, 0, 30,
-                0, 150, 30,
-                0, 0, 0,
-                0, 150, 30,
-                0, 150, 0]),
-            gl.STATIC_DRAW);
+            // bottom
+            0, 150, 0,
+            0, 150, 30,
+            30, 150, 30,
+            0, 150, 0,
+            30, 150, 30,
+            30, 150, 0,
+
+            // left side
+            0, 0, 0,
+            0, 0, 30,
+            0, 150, 30,
+            0, 0, 0,
+            0, 150, 30,
+            0, 150, 0]);
+
+        // Center the F around the origin and Flip it around. We do this because
+        // we're in 3D now with and +Y is up where as before when we started with 2D
+        // we had +Y as down.
+
+        // We could do by changing all the values above but I'm lazy.
+        // We could also do it with a matrix at draw time but you should
+        // never do stuff at draw time if you can do it at init time.
+        let matrix = m4.xRotation(Math.PI);
+        matrix = m4.translate(matrix, -50, -75, -15);
+
+        for (let ii = 0; ii < positions.length; ii += 3) {
+            let vector = vectorMultiply([positions[ii + 0], positions[ii + 1], positions[ii + 2], 1], matrix);
+            positions[ii + 0] = vector[0];
+            positions[ii + 1] = vector[1];
+            positions[ii + 2] = vector[2];
+        }
+
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
     }
 
     // Fill the buffer with colors for the 'F'.

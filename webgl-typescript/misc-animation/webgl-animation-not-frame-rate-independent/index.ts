@@ -1,4 +1,4 @@
-﻿namespace webgl_3d_perspective {
+﻿namespace webgl_3d_animation_not_frame_rate_independent {
 
     function radToDeg(r) {
         return r * 180 / Math.PI;
@@ -7,16 +7,6 @@
     function degToRad(d) {
         return d * Math.PI / 180;
     }
-
-    m4.projection = function (width: number, height: number, depth: number): Matrix4 {
-        // Note: This matrix flips the Y axis so 0 is at the top.
-        return [
-            2 / width, 0, 0, 0,
-            0, -2 / height, 0, 0,
-            0, 0, 2 / depth, 0,
-            -1, 1, 0, 1,
-        ];
-    };
 
     function main() {
         // Get A WebGL context
@@ -38,10 +28,10 @@
 
         // look up where the vertex data needs to go.
         let positionLocation = gl.getAttribLocation(program, "a_position");
+
         // lookup uniforms
         let colorLocation = gl.getAttribLocation(program, "a_color");
         let matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        let fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
 
         // Create a buffer to put positions in
         let positionBuffer = gl.createBuffer();
@@ -56,56 +46,21 @@
         // Put the colors in the buffer.
         setColors(gl);
 
-        let fudgeFactor = 1;
-        let translation = new Float32Array([45, 150, 0]);
+        let translation = new Float32Array([200, 150, 0]);
         let rotation = new Float32Array([degToRad(40), degToRad(25), degToRad(325)]);
         let scale = new Float32Array([1, 1, 1]);
         let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
 
-        drawScene();
+        let fieldOfViewRadians = degToRad(60);
+        let rotationSpeed = 1.2;
 
-        // Setup a ui.
-        webglLessonsHelper.setupSlider("#fudgeFactor", { value: fudgeFactor, slide: updateFudgeFactor, max: 2, step: 0.001, precision: 3 })
-        webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
-        webglLessonsHelper.setupSlider("#y", { value: translation[1], slide: updatePosition(1), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#z", { value: translation[2], slide: updatePosition(2), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#angleX", { value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360 });
-        webglLessonsHelper.setupSlider("#angleY", { value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360 });
-        webglLessonsHelper.setupSlider("#angleZ", { value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360 });
-        webglLessonsHelper.setupSlider("#scaleX", { value: scale[0], slide: updateScale(0), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleY", { value: scale[1], slide: updateScale(1), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleZ", { value: scale[2], slide: updateScale(2), min: -5, max: 5, step: 0.01, precision: 2 });
-
-        function updateFudgeFactor(event, ui) {
-            fudgeFactor = ui.value;
-            drawScene();
-        }
-
-        function updateRotation(index) {
-            return function (event, ui) {
-                var angleInDegrees = ui.value;
-                var angleInRadians = angleInDegrees * Math.PI / 180;
-                rotation[index] = angleInRadians;
-                drawScene();
-            }
-        }
-
-        function updateScale(index) {
-            return function (event, ui) {
-                scale[index] = ui.value;
-                drawScene();
-            }
-        }
-
-        function updatePosition(index) {
-            return function (event, ui) {
-                translation[index] = ui.value;
-                drawScene();
-            }
-        }
+        requestAnimationFrame(drawScene);
 
         // Draw a the scene.
         function drawScene() {
+
+            // Every frame increase the rotation a little.
+            rotation[1] += rotationSpeed / 60.0;
 
             webglUtils.resizeCanvasToDisplaySize(gl.canvas);
             // Tell WebGL how to convert from clip space to pixels
@@ -166,14 +121,14 @@
             // Set the matrix.
             gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
 
-            // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
-
             // Draw the rectangle.
             let primitiveType = gl.TRIANGLES;
             offset = 0;
             let count = 16 * 6;
             gl.drawArrays(primitiveType, offset, count);
+
+            // Call drawScene again next frame
+            requestAnimationFrame(drawScene);
         }
     }
 

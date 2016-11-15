@@ -1,20 +1,11 @@
-var webgl_3d_perspective;
-(function (webgl_3d_perspective) {
+var webgl_3d_camera_lookat;
+(function (webgl_3d_camera_lookat) {
     function radToDeg(r) {
         return r * 180 / Math.PI;
     }
     function degToRad(d) {
         return d * Math.PI / 180;
     }
-    m4.projection = function (width, height, depth) {
-        // Note: This matrix flips the Y axis so 0 is at the top.
-        return [
-            2 / width, 0, 0, 0,
-            0, -2 / height, 0, 0,
-            0, 0, 2 / depth, 0,
-            -1, 1, 0, 1,
-        ];
-    };
     function main() {
         // Get A WebGL context
         /** @type {HTMLCanvasElement} */
@@ -26,16 +17,15 @@ var webgl_3d_perspective;
             return;
         }
         // setup GLSL program
-        var program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
+        var program = webglUtils.createProgramFromScripts(gl, ["3d-vertex-shader", "3d-fragment-shader"]);
         gl.useProgram(program);
         gl.enable(gl.CULL_FACE);
         gl.enable(gl.DEPTH_TEST);
         // look up where the vertex data needs to go.
         var positionLocation = gl.getAttribLocation(program, "a_position");
-        // lookup uniforms
         var colorLocation = gl.getAttribLocation(program, "a_color");
+        // lookup uniforms
         var matrixLocation = gl.getUniformLocation(program, "u_matrix");
-        var fudgeLocation = gl.getUniformLocation(program, "u_fudgeFactor");
         // Create a buffer to put positions in
         var positionBuffer = gl.createBuffer();
         // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
@@ -47,46 +37,14 @@ var webgl_3d_perspective;
         gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
         // Put the colors in the buffer.
         setColors(gl);
-        var fudgeFactor = 1;
-        var translation = new Float32Array([45, 150, 0]);
-        var rotation = new Float32Array([degToRad(40), degToRad(25), degToRad(325)]);
-        var scale = new Float32Array([1, 1, 1]);
-        var color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
+        var cameraAngleRadians = degToRad(0);
+        var fieldOfViewRadians = degToRad(60);
         drawScene();
         // Setup a ui.
-        webglLessonsHelper.setupSlider("#fudgeFactor", { value: fudgeFactor, slide: updateFudgeFactor, max: 2, step: 0.001, precision: 3 });
-        webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
-        webglLessonsHelper.setupSlider("#y", { value: translation[1], slide: updatePosition(1), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#z", { value: translation[2], slide: updatePosition(2), max: gl.canvas.height });
-        webglLessonsHelper.setupSlider("#angleX", { value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360 });
-        webglLessonsHelper.setupSlider("#angleY", { value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360 });
-        webglLessonsHelper.setupSlider("#angleZ", { value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360 });
-        webglLessonsHelper.setupSlider("#scaleX", { value: scale[0], slide: updateScale(0), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleY", { value: scale[1], slide: updateScale(1), min: -5, max: 5, step: 0.01, precision: 2 });
-        webglLessonsHelper.setupSlider("#scaleZ", { value: scale[2], slide: updateScale(2), min: -5, max: 5, step: 0.01, precision: 2 });
-        function updateFudgeFactor(event, ui) {
-            fudgeFactor = ui.value;
+        webglLessonsHelper.setupSlider("#cameraAngle", { value: radToDeg(cameraAngleRadians), slide: updateCameraAngle, min: -360, max: 360 });
+        function updateCameraAngle(event, ui) {
+            cameraAngleRadians = degToRad(ui.value);
             drawScene();
-        }
-        function updateRotation(index) {
-            return function (event, ui) {
-                var angleInDegrees = ui.value;
-                var angleInRadians = angleInDegrees * Math.PI / 180;
-                rotation[index] = angleInRadians;
-                drawScene();
-            };
-        }
-        function updateScale(index) {
-            return function (event, ui) {
-                scale[index] = ui.value;
-                drawScene();
-            };
-        }
-        function updatePosition(index) {
-            return function (event, ui) {
-                translation[index] = ui.value;
-                drawScene();
-            };
         }
         // Draw a the scene.
         function drawScene() {
@@ -120,34 +78,60 @@ var webgl_3d_perspective;
             stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
             offset = 0; // start at the beginning of the buffer
             gl.vertexAttribPointer(colorLocation, size, type, normalize, stride, offset);
-            //let left = 0;
-            //let right = gl.canvas.clientWidth;
-            //let bottom = gl.canvas.clientHeight;
-            //let top = 0;
-            //let near = 200;
-            //let far = -200;
-            //let matrix = m4.orthographic(left, right, bottom, top, near, far);
-            var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
-            // Compute the matrices
-            matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
-            matrix = m4.xRotate(matrix, rotation[0]);
-            matrix = m4.yRotate(matrix, rotation[1]);
-            matrix = m4.zRotate(matrix, rotation[2]);
-            matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
-            // Set the matrix.
-            gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
-            // Set the fudgeFactor
-            gl.uniform1f(fudgeLocation, fudgeFactor);
-            // Draw the rectangle.
-            var primitiveType = gl.TRIANGLES;
-            offset = 0;
-            var count = 16 * 6;
-            gl.drawArrays(primitiveType, offset, count);
+            var aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+            var zNear = 1;
+            var zFar = 2000;
+            var projectionMatrix = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
+            var numFs = 5;
+            var radius = 200;
+            // Compute the position of the first F
+            // the target which camera will lookat 
+            var fPosition = [radius, 0, 0];
+            // Compute a matrix for the camera
+            var cameraMatrix = m4.yRotation(cameraAngleRadians);
+            cameraMatrix = m4.translate(cameraMatrix, 0, 0, radius * 1.5);
+            // Get the camera's postion from the matrix we computed
+            var cameraPosition = [
+                cameraMatrix[12],
+                cameraMatrix[13],
+                cameraMatrix[14],
+            ];
+            var up = [0, 1, 0];
+            // Compute the camera's matrix using look at.
+            cameraMatrix = m4.lookAt(cameraPosition, fPosition, up);
+            // Make a view matrix from the camera matrix
+            var viewMatrix = m4.inverse(cameraMatrix);
+            // Compute a view projection matrix
+            var viewProjectionMatrix = m4.multiply(projectionMatrix, viewMatrix);
+            for (var ii = 0; ii < numFs; ++ii) {
+                var angle = ii * Math.PI * 2 / numFs;
+                var x = Math.cos(angle) * radius;
+                var y = Math.sin(angle) * radius;
+                // starting with the view projection matrix
+                // compute a matrix for the F
+                var matrix = m4.translate(viewProjectionMatrix, x, 0, y);
+                // Set the matrix.
+                gl.uniformMatrix4fv(matrixLocation, false, new Float32Array(matrix));
+                // Draw the geometry.
+                var primitiveType = gl.TRIANGLES;
+                var offset_1 = 0;
+                var count = 16 * 6;
+                gl.drawArrays(primitiveType, offset_1, count);
+            }
         }
     }
     // Fill the buffer with the values that define a letter 'F'.
     function setGeometry(gl) {
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        function vectorMultiply(v, m) {
+            var dst = [];
+            for (var i = 0; i < 4; ++i) {
+                dst[i] = 0.0;
+                for (var j = 0; j < 4; ++j)
+                    dst[i] += v[j] * m[j * 4 + i];
+            }
+            return dst;
+        }
+        var positions = new Float32Array([
             // left column front
             0, 0, 0,
             0, 150, 0,
@@ -259,7 +243,22 @@ var webgl_3d_perspective;
             0, 150, 30,
             0, 0, 0,
             0, 150, 30,
-            0, 150, 0]), gl.STATIC_DRAW);
+            0, 150, 0]);
+        // Center the F around the origin and Flip it around. We do this because
+        // we're in 3D now with and +Y is up where as before when we started with 2D
+        // we had +Y as down.
+        // We could do by changing all the values above but I'm lazy.
+        // We could also do it with a matrix at draw time but you should
+        // never do stuff at draw time if you can do it at init time.
+        var matrix = m4.xRotation(Math.PI);
+        matrix = m4.translate(matrix, -50, -75, -15);
+        for (var ii = 0; ii < positions.length; ii += 3) {
+            var vector = vectorMultiply([positions[ii + 0], positions[ii + 1], positions[ii + 2], 1], matrix);
+            positions[ii + 0] = vector[0];
+            positions[ii + 1] = vector[1];
+            positions[ii + 2] = vector[2];
+        }
+        gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
     }
     // Fill the buffer with colors for the 'F'.
     function setColors(gl) {
@@ -378,5 +377,5 @@ var webgl_3d_perspective;
             160, 160, 220]), gl.STATIC_DRAW);
     }
     main();
-})(webgl_3d_perspective || (webgl_3d_perspective = {}));
+})(webgl_3d_camera_lookat || (webgl_3d_camera_lookat = {}));
 //# sourceMappingURL=index.js.map
