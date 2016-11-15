@@ -161,6 +161,10 @@
     <Content Include="monaco-editor\min\vs\nls.js" />
     <Content Include="robots.txt" />
     <Content Include="sitemap.xml" />
+    <Content Include="study\trapezoid\2d-trapezoid\index.html" />
+    <Content Include="study\trapezoid\2d-trapezoid\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="toc.html" />
     <Content Include="web.config" />
     <Content Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-simpler-functions\index.html" />
@@ -691,6 +695,10 @@
     <Content Include="contributors.md" />
     <Content Include="docs.md" />
     <Content Include="packages.config" />
+    <Content Include="study\trapezoid\2d-trapezoid\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="study\tsconfig.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -860,10 +868,14 @@
       <DependentUpon>index.ts</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="study\images\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="study\index.d.ts" />
+    <TypeScriptCompile Include="study\trapezoid\2d-trapezoid\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-simpler-functions\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-with-projection\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\2d\webgl-2d-geometry-matrix-transform-center-f\index.ts" />
