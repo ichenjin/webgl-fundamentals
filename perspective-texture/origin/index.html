@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Perspective transformation of images with WebGL</title>
+    <meta charset="utf-8" />
+    <style>
+        #container {
+            position: relative;
+            width: 500px;
+            height: 507px;
+        }
+
+            #container * {
+                position: absolute;
+            }
+
+        .errorMessage {
+            border: 1px solid #dFb5b4;
+            background: #fcf2f2;
+            color: #c7254e;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        circle.control-point {
+            fill: green;
+            fill-opacity: 0.25;
+        }
+
+            circle.control-point:hover {
+                stroke: yellow;
+                stroke-width: 2px;
+            }
+    </style>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://www.numericjs.com/lib/numeric-1.2.6.min.js"></script>
+    <script src="canvas2image.js"></script>
+</head>
+<body>
+    <div id="errors">
+        <!-- Any errors will go here wrapped in a div with an 'errorMessage' class. -->
+    </div>
+    <p>
+        Drag points around to distort image.
+        <input type="checkbox" checked="checked" id="drawControlPoints" />
+        <label for="drawControlPoints">Draw control points.</label>
+        <input type="checkbox" checked="checked" id="anisotropicFiltering" />
+        <label for="anisotropicFiltering">Anisotropic filtering.</label>
+        <input type="checkbox" checked="checked" id="mipMapping" />
+        <label for="mipMapping">MIP mapping.</label>
+        <input type="checkbox" checked="checked" id="linearFiltering" />
+        <label for="linearFiltering">(Bi-/Tri-)linear filtering.</label>
+        <button id="saveResult">Download as PNG</button>
+    </p>
+    <div id="container">
+        <!-- If background and/or screen image are not hosted on the
+             same domain as this page, the host must support CORS. -->
+        <img id="background" src="http://i.imgur.com/eFSch02.jpg">
+        <img id="screen" src="http://i.imgur.com/vsZypFu.png">
+        <!--<img id="screen" src="../checkerboard.png">-->
+        <canvas width="500" height="507" id="screenCanvas"></canvas>
+        <svg width="500" height="507" id="controlHandles"></svg>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
