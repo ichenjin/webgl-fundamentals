@@ -1,5 +1,39 @@
 ﻿/// <reference path="../scripts/typings/jquery/jquery.d.ts" />
 
+declare interface glSetters {
+    [x: string]: Function;
+}
+
+declare interface GLAttributeInfo{
+    buffer: WebGLBuffer;
+    numComponents?: number;
+    size?: number;
+    type?: number;
+    normalize?: boolean;
+    stride?: number;
+    offset?: number;
+}
+
+declare interface GLAttributes {
+    [x: string]: GLAttributeInfo;
+}
+
+declare interface GLArrayInfo {
+    numComponents: number;
+    data: ArrayLike<number>;
+    type?: Function;
+}
+
+declare interface GLArrays {
+    [x: string]: GLArrayInfo;
+}
+
+declare interface GLBufferInfo {
+    numElements: number;
+    indices?: WebGLBuffer;
+    attribs: GLAttributeInfo;
+}
+
 declare interface webglUtils {
     /**
      * Creates a program from 2 script tags.
@@ -28,6 +62,15 @@ declare interface webglUtils {
      * @memberOf module:webgl-utils
      */
     resizeCanvasToDisplaySize(canvas: HTMLCanvasElement, multiplier?: number): void;
+
+    createUniformSetters(gl: WebGLRenderingContext, program: WebGLProgram): glSetters;
+    createAttributeSetters(gl: WebGLRenderingContext, program: WebGLProgram): glSetters;
+
+    setAttributes(setters: glSetters, attribs: GLAttributes);
+    setUniforms(setters: glSetters, values: any);
+
+    createBufferInfoFromArrays(gl: WebGLRenderingContext, arrays: GLArrays, opt_mapping?: any): GLBufferInfo;
+    setBuffersAndAttributes(gl: WebGLRenderingContext, setters: glSetters, buffers: GLBufferInfo);
 }
 declare const webglUtils: webglUtils;
 

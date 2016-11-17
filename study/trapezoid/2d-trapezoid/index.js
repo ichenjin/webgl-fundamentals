@@ -32,22 +32,12 @@ var webgl_2d_image_my;
         // provide texture coordinates for the rectangle.
         var texcoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
-        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        //    0.0, 0.0,
-        //    1.0, 0.0,
-        //    0.0, 1.0,
-        //    0.0, 1.0,
-        //    1.0, 0.0,
-        //    1.0, 1.0,
-        //]), gl.STATIC_DRAW);
         var imgWidth = image.width;
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             0, 0, 0, imgWidth,
             imgWidth, 0.0, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            imgWidth, 0.0, 0, imgWidth,
-            imgWidth, imgWidth, 0, imgWidth,
+            0.0, imgWidth, 0, imgWidth / 2,
+            imgWidth, imgWidth, 0, imgWidth / 2,
         ]), gl.STATIC_DRAW);
         // Create a texture.
         setTexture(gl, image);
@@ -93,7 +83,7 @@ var webgl_2d_image_my;
         // Draw the rectangle.
         var primitiveType = gl.TRIANGLE_STRIP;
         offset = 0;
-        var count = 6;
+        var count = 4;
         gl.drawArrays(primitiveType, offset, count);
     }
     function setRectangle(gl, width, height) {
@@ -113,8 +103,6 @@ var webgl_2d_image_my;
             0, 0, 0,
             width, 0, 0,
             offset, height, 0,
-            offset, height, 0,
-            width, 0, 0,
             width - offset, height, 0,
         ]), gl.STATIC_DRAW);
     }

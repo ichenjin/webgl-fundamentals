@@ -36,22 +36,12 @@
         // provide texture coordinates for the rectangle.
         let texcoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
-        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        //    0.0, 0.0,
-        //    1.0, 0.0,
-        //    0.0, 1.0,
-        //    0.0, 1.0,
-        //    1.0, 0.0,
-        //    1.0, 1.0,
-        //]), gl.STATIC_DRAW);
         let imgWidth = image.width;
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             0, 0, 0, imgWidth,
             imgWidth, 0.0, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            imgWidth, 0.0, 0, imgWidth,
-            imgWidth, imgWidth, 0, imgWidth,
+            0.0, imgWidth, 0, imgWidth/2,
+            imgWidth, imgWidth, 0, imgWidth/2,
         ]), gl.STATIC_DRAW);
 
 
@@ -116,7 +106,7 @@
         // Draw the rectangle.
         let primitiveType = gl.TRIANGLE_STRIP;
         offset = 0;
-        let count = 6;
+        let count = 4;
         gl.drawArrays(primitiveType, offset, count);
     }
 
@@ -138,8 +128,6 @@
             0, 0, 0,
             width, 0, 0,
             offset, height, 0,
-            offset, height, 0,
-            width, 0, 0,
             width - offset, height, 0,
         ]), gl.STATIC_DRAW);
     }

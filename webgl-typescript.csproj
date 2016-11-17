@@ -312,6 +312,22 @@
     <Content Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="webgl\embed-test.html" />
     <Content Include="webgl\frustum-diagram.html" />
     <Content Include="webgl\glyph-texture-atlas-maker.html" />
@@ -887,6 +903,18 @@
     <Content Include="webgl-typescript\misc-3dtexture\webgl-3d-textures-texture-coords-mapped\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -931,6 +959,10 @@
     <TypeScriptCompile Include="webgl-typescript\misc-3dtexture\webgl-3d-textures\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun\index.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
