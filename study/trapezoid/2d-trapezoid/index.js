@@ -91,7 +91,7 @@ var webgl_2d_image_my;
         matrix = m3.translate(matrix, 10, 10);
         gl.uniformMatrix3fv(matrixLocation, false, new Float32Array(matrix));
         // Draw the rectangle.
-        var primitiveType = gl.TRIANGLES;
+        var primitiveType = gl.TRIANGLE_STRIP;
         offset = 0;
         var count = 6;
         gl.drawArrays(primitiveType, offset, count);

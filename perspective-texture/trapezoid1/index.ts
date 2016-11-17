@@ -1,9 +1,10 @@
 ﻿namespace webgl_2d_image_my {
     function main() {
         let image = new Image();
-        image.width = 256;
-        image.height = 256;
-        image.src = "../../images/checkerboard.png";  // MUST BE SAME DOMAIN!!!
+        //image.width = 256;
+        //image.height = 256;
+        //image.src = "../../../webgl/resources/leaves.jpg";  // MUST BE SAME DOMAIN!!!
+        image.src = "../checkerboard.jpg";
         image.onload = function () {
             render(image);
         }
@@ -24,36 +25,25 @@
             webglLessonsHelper.showNeedWebGL(canvas);
             return;
         }
-        
+
         // Create a buffer to put three 2d clip space points in
         let positionBuffer = gl.createBuffer();
         // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
         // Set a rectangle the same size as the image.
         setTrapezoid(gl, image.width, image.height);
-        //setRectangle(gl, image.width, image.height);
 
         // provide texture coordinates for the rectangle.
         let texcoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
-        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        //    0.0, 0.0,
-        //    1.0, 0.0,
-        //    0.0, 1.0,
-        //    0.0, 1.0,
-        //    1.0, 0.0,
-        //    1.0, 1.0,
-        //]), gl.STATIC_DRAW);
-        let imgWidth = image.width;
+        let tw = image.width;
+        let tnw = tw / 2;
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-            0, 0, 0, imgWidth,
-            imgWidth, 0.0, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            0.0, imgWidth, 0, imgWidth,
-            imgWidth, 0.0, 0, imgWidth,
-            imgWidth, imgWidth, 0, imgWidth,
+            0.0, 0.0, 0.0, tw,
+            tw, 0.0, 0.0, tw,
+            0.0, tw, 0.0, tw,
+            tw, tw, 0.0, tw,
         ]), gl.STATIC_DRAW);
-
 
         // Create a texture.
         setTexture(gl, image);
@@ -85,7 +75,7 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
         // Tell the position attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-        let size = 3;          // 2 components per iteration
+        let size = 2;          // 2 components per iteration
         let type = gl.FLOAT;   // the data is 32bit floats
         let normalize = false; // don't normalize the data
         let stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
@@ -116,7 +106,7 @@
         // Draw the rectangle.
         let primitiveType = gl.TRIANGLE_STRIP;
         offset = 0;
-        let count = 6;
+        let count = 4;
         gl.drawArrays(primitiveType, offset, count);
     }
 
@@ -132,18 +122,29 @@
     }
 
     function setTrapezoid(gl: WebGLRenderingContext, width: number, height: number) {
-        let bottomWidth = width / 2;
-        let offset = (width - bottomWidth) / 2;
+        let narrowWidth = width / 2;
+        //narrowWidth = width;
+        let offset = (width - narrowWidth) / 2;
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-            0, 0, 0,
-            width, 0, 0,
-            offset, height, 0,
-            offset, height, 0,
-            width, 0, 0,
-            width - offset, height, 0,
+            0, 0,
+            width, 0,
+            offset, height,
+            width - offset, height,
         ]), gl.STATIC_DRAW);
     }
 
+    function setTrapezoid_bak(gl: WebGLRenderingContext, width: number, height: number) {
+        let narrowWidth = width / 2;
+        let offset = (width - narrowWidth) / 2;
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+            0, 0,
+            width, 0,
+            offset, height,
+            offset, height,
+            width, 0,
+            width - offset, height,
+        ]), gl.STATIC_DRAW);
+    }
 
     function setTexture(gl: WebGLRenderingContext, image: HTMLImageElement) {
         let texture = gl.createTexture();

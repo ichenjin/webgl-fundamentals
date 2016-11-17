@@ -159,8 +159,21 @@
     <Content Include="monaco-editor\min\vs\language\typescript\src\worker.js" />
     <Content Include="monaco-editor\min\vs\loader.js" />
     <Content Include="monaco-editor\min\vs\nls.js" />
+    <Content Include="perspective-texture\checkerboard.jpg" />
+    <Content Include="perspective-texture\origin\canvas2image.js" />
+    <Content Include="perspective-texture\origin\index.html" />
+    <Content Include="perspective-texture\origin\index.js" />
+    <Content Include="perspective-texture\trapezoid1\index.html" />
+    <Content Include="perspective-texture\trapezoid1\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\trapezoid\index.html" />
+    <Content Include="perspective-texture\trapezoid\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="robots.txt" />
     <Content Include="sitemap.xml" />
+    <Content Include="study\images\checkerboard.png" />
     <Content Include="study\trapezoid\2d-trapezoid\index.html" />
     <Content Include="study\trapezoid\2d-trapezoid\index.js">
       <DependentUpon>index.ts</DependentUpon>
@@ -699,6 +712,13 @@
       <DependentUpon>index.ts</DependentUpon>
     </Content>
     <Content Include="study\tsconfig.json" />
+    <Content Include="perspective-texture\trapezoid\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\tsconfig.json" />
+    <Content Include="perspective-texture\trapezoid1\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -868,10 +888,11 @@
       <DependentUpon>index.ts</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="study\images\" />
-  </ItemGroup>
-  <ItemGroup>
+    <TypeScriptCompile Include="perspective-texture\index.d.ts" />
+    <TypeScriptCompile Include="perspective-texture\trapezoid1\index.ts" />
+    <TypeScriptCompile Include="perspective-texture\trapezoid\index.ts" />
     <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="study\index.d.ts" />
