@@ -159,18 +159,29 @@
     <Content Include="monaco-editor\min\vs\language\typescript\src\worker.js" />
     <Content Include="monaco-editor\min\vs\loader.js" />
     <Content Include="monaco-editor\min\vs\nls.js" />
+    <Content Include="perspective-texture-arbitrary\origin\canvas2image.js" />
+    <Content Include="perspective-texture-arbitrary\origin\index.html" />
+    <Content Include="perspective-texture-arbitrary\origin\index.js" />
+    <Content Include="perspective-texture\2d\OK1\index.html" />
+    <Content Include="perspective-texture\2d\OK1\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\2d\OK\index.html" />
+    <Content Include="perspective-texture\2d\OK\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\2d\webgl-2d-image\index.html" />
+    <Content Include="perspective-texture\2d\webgl-2d-image\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.html" />
+    <Content Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="perspective-texture\checkerboard.jpg" />
     <Content Include="perspective-texture\origin\canvas2image.js" />
     <Content Include="perspective-texture\origin\index.html" />
     <Content Include="perspective-texture\origin\index.js" />
-    <Content Include="perspective-texture\trapezoid1\index.html" />
-    <Content Include="perspective-texture\trapezoid1\index.js">
-      <DependentUpon>index.ts</DependentUpon>
-    </Content>
-    <Content Include="perspective-texture\trapezoid\index.html" />
-    <Content Include="perspective-texture\trapezoid\index.js">
-      <DependentUpon>index.ts</DependentUpon>
-    </Content>
     <Content Include="robots.txt" />
     <Content Include="sitemap.xml" />
     <Content Include="study\images\checkerboard.png" />
@@ -316,8 +327,16 @@
     <Content Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-image\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-image\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.html" />
     <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-perspective-matrix\index.html" />
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-perspective-matrix\index.js">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
     <Content Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.html" />
@@ -728,11 +747,17 @@
       <DependentUpon>index.ts</DependentUpon>
     </Content>
     <Content Include="study\tsconfig.json" />
-    <Content Include="perspective-texture\trapezoid\index.js.map">
+    <Content Include="perspective-texture\tsconfig.json" />
+    <Content Include="perspective-texture\2d\webgl-2d-image\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
-    <Content Include="perspective-texture\tsconfig.json" />
-    <Content Include="perspective-texture\trapezoid1\index.js.map">
+    <Content Include="perspective-texture\2d\OK\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\2d\OK1\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
@@ -915,12 +940,20 @@
     <Content Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-2d-image\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="webgl-typescript\structure-and-organization\webgl-3d-perspective-matrix\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <TypeScriptCompile Include="perspective-texture\2d\OK1\index.ts" />
+    <TypeScriptCompile Include="perspective-texture\2d\OK\index.ts" />
+    <TypeScriptCompile Include="perspective-texture\2d\webgl-2d-image\index.ts" />
+    <TypeScriptCompile Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.ts" />
     <TypeScriptCompile Include="perspective-texture\index.d.ts" />
-    <TypeScriptCompile Include="perspective-texture\trapezoid1\index.ts" />
-    <TypeScriptCompile Include="perspective-texture\trapezoid\index.ts" />
     <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="study\index.d.ts" />
@@ -960,7 +993,9 @@
     <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\misc-animation\webgl-animation-not-frame-rate-independent\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-2d-geometry-matrix-transform-simpler-functions\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-2d-image\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-3d-final\index.ts" />
+    <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-3d-perspective-matrix\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun-triangle\index.ts" />
     <TypeScriptCompile Include="webgl-typescript\structure-and-organization\webgl-less-code-more-fun\index.ts" />
   </ItemGroup>

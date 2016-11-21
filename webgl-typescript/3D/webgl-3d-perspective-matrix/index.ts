@@ -46,12 +46,10 @@
         // Put the colors in the buffer.
         setColors(gl);
 
-        let fudgeFactor = 1;
         let translation = new Float32Array([-150, 0, -360]);
         let rotation = new Float32Array([degToRad(190), degToRad(40), degToRad(320)]);
         let scale = new Float32Array([1, 1, 1]);
         let fieldOfViewRadians = degToRad(60);
-        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
 
         drawScene();
 

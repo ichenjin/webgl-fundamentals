@@ -42,7 +42,6 @@
         let translation = new Float32Array([45, 150, 0]);
         let rotation = new Float32Array([degToRad(40), degToRad(25), degToRad(325)]);
         let scale = new Float32Array([1, 1, 1]);
-        let color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
 
         // Setup a ui.
         webglLessonsHelper.setupSlider("#x", { value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
@@ -108,13 +107,11 @@
             matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
 
             uniforms.u_matrix = matrix;
-
             // Set the matrix.
             webglUtils.setBuffersAndAttributes(gl, attrSetters, bufferInfo);
             webglUtils.setUniforms(uniformSetters, uniforms);
 
             // Draw the geometry.
-            let count = 16 * 6;
             gl.drawArrays(gl.TRIANGLES, 0, bufferInfo.numElements);
         }
     }

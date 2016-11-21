@@ -37,12 +37,10 @@ var webgl_3d_perspective_w_matrix;
         gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
         // Put the colors in the buffer.
         setColors(gl);
-        var fudgeFactor = 1;
         var translation = new Float32Array([-150, 0, -360]);
         var rotation = new Float32Array([degToRad(190), degToRad(40), degToRad(320)]);
         var scale = new Float32Array([1, 1, 1]);
         var fieldOfViewRadians = degToRad(60);
-        var color = new Float32Array([Math.random(), Math.random(), Math.random(), 1]);
         drawScene();
         // Setup a ui.
         webglLessonsHelper.setupSlider("#fieldOfView", { value: radToDeg(fieldOfViewRadians), slide: updateFieldOfView, min: 1, max: 179 });
