@@ -182,6 +182,14 @@
     <Content Include="perspective-texture\origin\canvas2image.js" />
     <Content Include="perspective-texture\origin\index.html" />
     <Content Include="perspective-texture\origin\index.js" />
+    <Content Include="perspective-texture\trapezoid\vec4\index.html" />
+    <Content Include="perspective-texture\trapezoid\vec4\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\trapezoid\vec3\index.html" />
+    <Content Include="perspective-texture\trapezoid\vec3\index.js">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <Content Include="robots.txt" />
     <Content Include="sitemap.xml" />
     <Content Include="study\images\checkerboard.png" />
@@ -760,6 +768,12 @@
     <Content Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.js.map">
       <DependentUpon>index.ts</DependentUpon>
     </Content>
+    <Content Include="perspective-texture\trapezoid\vec3\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
+    <Content Include="perspective-texture\trapezoid\vec4\index.js.map">
+      <DependentUpon>index.ts</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -954,6 +968,8 @@
     <TypeScriptCompile Include="perspective-texture\2d\webgl-2d-image\index.ts" />
     <TypeScriptCompile Include="perspective-texture\3d\webgl-3d-perspective-matrix\index.ts" />
     <TypeScriptCompile Include="perspective-texture\index.d.ts" />
+    <TypeScriptCompile Include="perspective-texture\trapezoid\vec4\index.ts" />
+    <TypeScriptCompile Include="perspective-texture\trapezoid\vec3\index.ts" />
     <TypeScriptCompile Include="scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="study\index.d.ts" />
