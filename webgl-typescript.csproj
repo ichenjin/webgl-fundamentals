@@ -159,9 +159,13 @@
     <Content Include="monaco-editor\min\vs\language\typescript\src\worker.js" />
     <Content Include="monaco-editor\min\vs\loader.js" />
     <Content Include="monaco-editor\min\vs\nls.js" />
+    <Content Include="perspective-texture-arbitrary\test\canvas2image.js" />
+    <Content Include="perspective-texture-arbitrary\test\index.html" />
+    <Content Include="perspective-texture-arbitrary\test\index.js" />
     <Content Include="perspective-texture-arbitrary\origin\canvas2image.js" />
     <Content Include="perspective-texture-arbitrary\origin\index.html" />
     <Content Include="perspective-texture-arbitrary\origin\index.js" />
+    <Content Include="perspective-texture-arbitrary\test\TextFile1.txt" />
     <Content Include="perspective-texture\2d\OK1\index.html" />
     <Content Include="perspective-texture\2d\OK1\index.js">
       <DependentUpon>index.ts</DependentUpon>

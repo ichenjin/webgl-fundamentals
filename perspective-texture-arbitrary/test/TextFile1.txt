@@ -1,0 +1,33 @@
+﻿1. Canvas2Image.js
+将Canvas保存为图片的第三方库
+
+2. 三个图层
+底层为一张背景图，显示一部手机
+中间层为Canvas，用于渲染Texture
+上层为一张SVG，用于显示四个拖拽点
+
+3. shader
+
+Vertex Shader
+	
+	attribute vec2 aVertCoord;
+	uniform mat4 uTransformMatrix;
+	varying vec2 vTextureCoord;
+	void main(void) {
+	    vTextureCoord = aVertCoord;
+	    gl_Position = uTransformMatrix * vec4(aVertCoord, 0.0, 1.0);
+	}
+
+Fragment Shader
+
+    precision mediump float;
+    varying vec2 vTextureCoord;
+    uniform sampler2D uSampler;
+    void main(void)  {
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+    }
+
+上述代码可以看出，vertext shader 接受普通的2D顶点坐标及透视变换矩阵，然后相乘后得出透视后的实际坐标，
+而fragment shader只是很简单的按坐标从texture中取色。
+与之前webgl fundamentals的方法不同，wf需要向vs提供四维顶点坐标及三维材质坐标，vs运算出实际坐标后传给fs，再由fs按透视正确的方式从texture取色
+
